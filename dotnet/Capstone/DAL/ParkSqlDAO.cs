@@ -16,13 +16,17 @@ namespace Capstone.DAL
 
         }
 
+        /// <summary>
+        /// returns a list of all the parks in the DB
+        /// </summary>
+        /// <returns></returns>
         public IList<Park> GetParks()
         {
             List<Park> Parks = new List<Park>();
 
             try
             {
-                using(SqlConnection conn = new SqlConnection())
+                using(SqlConnection conn = new SqlConnection(ConnectionString))
                 {
                     conn.Open();
 

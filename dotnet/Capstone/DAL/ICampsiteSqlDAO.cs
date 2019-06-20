@@ -7,7 +7,17 @@ namespace Capstone.DAL
 {
     public interface ICampsiteSqlDAO
     {
-        //Returns a list of campsites from the DB
+        /// <summary>
+        /// Returns a list of campsites from the DB
+        /// </summary>
+        /// <returns></returns>
         IList<Campsite> GetCampsites();
+
+        /// <summary>
+        /// returns a list of the campsites in a specific campground
+        /// </summary>
+        /// <param name="campground_id"></param>
+        /// <returns></returns>
+        IList<Campsite> GetCampSitesByCampgrounds(int campground_id);
     }
 }

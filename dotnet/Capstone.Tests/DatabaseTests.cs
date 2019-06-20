@@ -17,9 +17,9 @@ namespace Capstone.Tests
         protected int ParkId { get; set; }
         protected int BlackLodgeCampgroundId { get; set; }
         protected int WhiteLodgeCampgroundId { get; set; }
-        protected int BlackLodgeCampsiteId { get; set; }
-        protected int WhiteLodgeCampsiteId { get; set; }
-        protected int BlackLodgeReservation { get; set; }
+        protected int BlackLodgeSiteId { get; set; }
+        protected int WhiteLodgeSiteId { get; set; }
+        protected int BlackLodgeReservationId { get; set; }
 
         [TestInitialize]
         public void Initialize()
@@ -51,54 +51,54 @@ namespace Capstone.Tests
                 //Add sites to campgrounds
                 cmdText = $"INSERT INTO site VALUES ({BlackLodgeCampgroundId}, 9, 100, 1, 0, 1);SELECT SCOPE_IDENTITY();";
                 command = new SqlCommand(cmdText, connection);
-                BlackLodgeCampsiteId = Convert.ToInt32(command.ExecuteScalar());
+                BlackLodgeSiteId = Convert.ToInt32(command.ExecuteScalar());
 
                 cmdText = $"INSERT INTO site VALUES ({WhiteLodgeCampgroundId}, 9, 10, 1, 1, 0);SELECT SCOPE_IDENTITY();";
                 command = new SqlCommand(cmdText, connection);
-                WhiteLodgeCampsiteId = Convert.ToInt32(command.ExecuteScalar());
+                WhiteLodgeSiteId = Convert.ToInt32(command.ExecuteScalar());
 
                 //Add resevation to black lodge campsite
-                cmdText = $"INSERT INTO site VALUES ({BlackLodgeCampgroundId}, 9, 100, 1, 0, 1);SELECT SCOPE_IDENTITY();";
+                cmdText = $"INSERT INTO reservation VALUES ({BlackLodgeSiteId}, 'Dale Cooper', '1991-02-26', '1991-04-26','1991-04-27');SELECT SCOPE_IDENTITY();";
                 command = new SqlCommand(cmdText, connection);
-                BlackLodgeReservation = Convert.ToInt32(command.ExecuteScalar());
+                BlackLodgeReservationId = Convert.ToInt32(command.ExecuteScalar());
 
             }
         }
 
-        //[TestMethod]
-        //public void GetData()
-        //{
-        //    transaction = new TransactionScope();
-        //    using (SqlConnection connection = new SqlConnection(ConnectionString))
-        //    {
-        //        connection.Open();
+        [TestMethod]
+        public void GetData()
+        {
+            transaction = new TransactionScope();
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
 
-        //        int DepartmentIdCount = -1;
-        //        int EmployeeIdCount = -1;
-        //        int ProjectIdCount = -1;
-        //        int Project_EmployeeIdCount = -1;
+                int ParkIdCount = -1;
+                int CampgroundIdCount = -1;
+                int SiteIdCount = -1;
+                int ReservationIdCount = -1;
 
-        //        string cmdText = "SELECT COUNT(name) FROM department";
-        //        SqlCommand command = new SqlCommand(cmdText, connection);
-        //        DepartmentIdCount = Convert.ToInt32(command.ExecuteScalar());
+                string cmdText = "SELECT COUNT(name) FROM park";
+                SqlCommand command = new SqlCommand(cmdText, connection);
+                ParkIdCount = Convert.ToInt32(command.ExecuteScalar());
 
-        //        cmdText = "SELECT COUNT(employee_id) FROM employee";
-        //        command = new SqlCommand(cmdText, connection);
-        //        EmployeeIdCount = Convert.ToInt32(command.ExecuteScalar());
+                cmdText = "SELECT COUNT(name) FROM campground";
+                command = new SqlCommand(cmdText, connection);
+                CampgroundIdCount = Convert.ToInt32(command.ExecuteScalar());
 
-        //        cmdText = "SELECT COUNT(project_id) FROM project";
-        //        command = new SqlCommand(cmdText, connection);
-        //        ProjectIdCount = Convert.ToInt32(command.ExecuteScalar());
+                cmdText = "SELECT COUNT(site_number) FROM site";
+                command = new SqlCommand(cmdText, connection);
+                SiteIdCount = Convert.ToInt32(command.ExecuteScalar());
 
-        //        cmdText = "SELECT COUNT(project_id) FROM project_employee";
-        //        command = new SqlCommand(cmdText, connection);
-        //        Project_EmployeeIdCount = Convert.ToInt32(command.ExecuteScalar());
+                cmdText = "SELECT COUNT(name) FROM reservation";
+                command = new SqlCommand(cmdText, connection);
+                ReservationIdCount = Convert.ToInt32(command.ExecuteScalar());
 
-        //        Assert.AreEqual($"{DepartmentIdCount}{EmployeeIdCount}{ProjectIdCount}{Project_EmployeeIdCount}", "1211");
-        //    }
-        //}
+                Assert.AreEqual($"{ParkIdCount}{CampgroundIdCount}{SiteIdCount}{ReservationIdCount}", "1221");
+            }
+        }
 
-       [TestCleanup]
+        [TestCleanup]
        public void CleanUp()
        {
             // Roll back the transaction

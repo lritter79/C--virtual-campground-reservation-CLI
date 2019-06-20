@@ -13,6 +13,13 @@ namespace Capstone.DAL
         IList<Reservation> GetReservations();
 
         /// <summary>
+        /// returns a list of the reservations for a specific campsite
+        /// </summary>
+        /// <param name="site_id"></param>
+        /// <returns></returns>
+        IList<Reservation> GetReservationsBySite(int site_id);
+
+        /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>

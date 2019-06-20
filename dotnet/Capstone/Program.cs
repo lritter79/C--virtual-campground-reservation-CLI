@@ -23,7 +23,7 @@ namespace Capstone
             ICampsiteSqlDAO campsiteSqlDAO = new CampsiteSqlDAO(@"Server=.\SQLEXPRESS;Database=npcampground;Trusted_Connection=True;");
             IReservationSqlDAO reservationsSqlDAO = new ReservationSqlDAO(@"Server=.\SQLEXPRESS;Database=npcampground;Trusted_Connection=True;");
 
-
+            //parkSqlDAO.GetParks();
             
         }
     }

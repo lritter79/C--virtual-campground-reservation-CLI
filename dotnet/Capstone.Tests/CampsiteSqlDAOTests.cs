@@ -12,5 +12,16 @@ namespace Capstone.Tests
     [TestClass]
     public class CampsiteSqlDAOTests: DatabaseTests
     {
+
+        [TestMethod]
+        public void GetSiteTest()
+        {
+            //Arrange
+
+            //Assert
+
+            //Act
+        }
+
+        
     }
-}
