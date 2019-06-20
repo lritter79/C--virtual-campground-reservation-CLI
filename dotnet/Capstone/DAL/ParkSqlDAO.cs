@@ -32,7 +32,7 @@ namespace Capstone.DAL
 
                     while (reader.Read())
                     {
-
+                        Parks.Add(new Park(reader));
                     }
 
 
