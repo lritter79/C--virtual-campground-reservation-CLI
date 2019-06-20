@@ -14,7 +14,8 @@ namespace Capstone.Tests
     {
         protected string ConnectionString = "Server=.\\SQLEXPRESS;Database=npcampground;Trusted_Connection=True;";
         private TransactionScope transaction;
-        protected int ParkId { get; set; }
+        protected int TwinPeaksParkId { get; set; }
+        protected int JellyStoneParkId { get; set; }
         protected int BlackLodgeCampgroundId { get; set; }
         protected int WhiteLodgeCampgroundId { get; set; }
         protected int BlackLodgeSiteId { get; set; }
@@ -37,16 +38,22 @@ namespace Capstone.Tests
                 //Add row to park table
                 cmdText = $"INSERT INTO park VALUES('Twin Peaks', 'Washington', '1990-02-26', 2112, 119,'Twin Peaks is an American mystery horror drama television series created by Mark Frost and David Lynch that premiered on April 8, 1990.'); SELECT SCOPE_IDENTITY();";
                 command = new SqlCommand(cmdText, connection);
-                ParkId = Convert.ToInt32(command.ExecuteScalar());
+                TwinPeaksParkId = Convert.ToInt32(command.ExecuteScalar());
+
+                cmdText = $"INSERT INTO park VALUES('Jellystone', 'Wyoming', '1990-02-26', 2112, 119,'Watch out for bears stealing picinic baskets.'); SELECT SCOPE_IDENTITY();";
+                command = new SqlCommand(cmdText, connection);
+                JellyStoneParkId = Convert.ToInt32(command.ExecuteScalar());
 
                 // Add campgrounds to park
-                cmdText = $"INSERT INTO campground VALUES ({ParkId}, 'Black Lodge', 01, 09, 420.00);SELECT SCOPE_IDENTITY();";
+                cmdText = $"INSERT INTO campground VALUES ({TwinPeaksParkId}, 'Black Lodge', 01, 09, 420.00);SELECT SCOPE_IDENTITY();";
                 command = new SqlCommand(cmdText, connection);
                 BlackLodgeCampgroundId = Convert.ToInt32(command.ExecuteScalar());
 
-                cmdText = $"INSERT INTO campground VALUES ({ParkId}, 'White Lodge', 01, 12, 240.00);SELECT SCOPE_IDENTITY();";
+                cmdText = $"INSERT INTO campground VALUES ({TwinPeaksParkId}, 'White Lodge', 01, 12, 240.00);SELECT SCOPE_IDENTITY();";
                 command = new SqlCommand(cmdText, connection);
                 WhiteLodgeCampgroundId = Convert.ToInt32(command.ExecuteScalar());
+
+                cmdText = $"INSERT INTO campground VALUES ({JellyStoneParkId}, 'White Lodge', 01, 12, 240.00);SELECT SCOPE_IDENTITY();";
 
                 //Add sites to campgrounds
                 cmdText = $"INSERT INTO site VALUES ({BlackLodgeCampgroundId}, 9, 100, 1, 0, 1);SELECT SCOPE_IDENTITY();";
@@ -94,7 +101,7 @@ namespace Capstone.Tests
                 command = new SqlCommand(cmdText, connection);
                 ReservationIdCount = Convert.ToInt32(command.ExecuteScalar());
 
-                Assert.AreEqual($"{ParkIdCount}{CampgroundIdCount}{SiteIdCount}{ReservationIdCount}", "1221");
+                Assert.AreEqual($"{ParkIdCount}{CampgroundIdCount}{SiteIdCount}{ReservationIdCount}", "2321");
             }
         }
 

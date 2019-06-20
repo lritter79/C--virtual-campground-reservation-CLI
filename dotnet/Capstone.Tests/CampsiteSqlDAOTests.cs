@@ -10,7 +10,7 @@ using Capstone.Models;
 namespace Capstone.Tests
 {
     [TestClass]
-    public class CampsiteSqlDAOTests: DatabaseTests
+    public class CampsiteSqlDAOTests : DatabaseTests
     {
 
         [TestMethod]
@@ -23,5 +23,6 @@ namespace Capstone.Tests
             //Act
         }
 
-        
+
     }
+}

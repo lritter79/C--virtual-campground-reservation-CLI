@@ -19,5 +19,12 @@ namespace Capstone.Tests
             //Assert MakeReservations Works
         }
 
+
+        public void Does_Not_Show_Sites_With_Conflicting_Reservations()
+        {
+
+
+        }
+
     }
 }

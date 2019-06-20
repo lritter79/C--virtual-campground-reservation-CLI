@@ -17,13 +17,13 @@ namespace Capstone.DAL
         /// </summary>
         /// <param name="site_id"></param>
         /// <returns></returns>
-        IList<Reservation> GetReservationsBySite(int site_id);
+        IList<Reservation> GetReservationsBySiteAndDate(int site_id);
 
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        int BookReservation();
+        int BookReservation(Reservation reservation);
 
 
 

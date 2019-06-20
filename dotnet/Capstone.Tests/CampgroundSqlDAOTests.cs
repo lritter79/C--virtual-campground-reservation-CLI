@@ -14,12 +14,18 @@ namespace Capstone.Tests
         [TestMethod]
         public void GetCampgroundsTest()
         {
-            //Arrange
 
+            //Arrange
+            CampgroundSqlDAO dao = new CampgroundSqlDAO(ConnectionString);
+            //Act
+            IList<Campground> campGrounds = dao.GetCampgrounds();
             //Assert
 
-            //Act
+            Assert.AreEqual(campGrounds.Count, 2);
         }
+
+    
+}
 
         [TestMethod]
         public void GetCampgroundsByParkTest()

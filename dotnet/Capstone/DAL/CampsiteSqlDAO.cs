@@ -17,6 +17,10 @@ namespace Capstone.DAL
 
         }
 
+        /// <summary>
+        /// Gets a full list of all sites from the DB
+        /// </summary>
+        /// <returns></returns>
         public IList<Campsite> GetCampsites()
         {
             List<Campsite> campsites = new List<Campsite>();
@@ -49,6 +53,11 @@ namespace Capstone.DAL
             return campsites;
         }
 
+        /// <summary>
+        /// Gets a list of the campsites that are in a specific campground
+        /// </summary>
+        /// <param name="campground_id"></param>
+        /// <returns></returns>
         public IList<Campsite> GetCampSitesByCampgrounds(int campground_id)
         {
             List<Campsite> campsites = new List<Campsite>();

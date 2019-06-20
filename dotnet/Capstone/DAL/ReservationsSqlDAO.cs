@@ -18,8 +18,10 @@ namespace Capstone.DAL
 
         }
 
-        public int BookReservation()
+        public int BookReservation(Reservation reservation)
         {
+
+
             
 
 
@@ -57,7 +59,7 @@ namespace Capstone.DAL
             return reservations;
         }
 
-        public IList<Reservation> GetReservationsBySite(int site_id)
+        public IList<Reservation> GetReservationsBySiteAndDate(int site_id, DateTime start, DateTime end)
         {
             List<Reservation> reservations = new List<Reservation>();
 
@@ -67,7 +69,10 @@ namespace Capstone.DAL
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT * from reservations where site_id = @siteid order by name, from_date;", conn);
+                    SqlCommand cmd = new SqlCommand("SELECT * from site  where site_id = @siteid order by name, from_date;", conn);
+
+
+
                     cmd.Parameters.AddWithValue("@siteid", site_id);
 
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -88,5 +93,15 @@ namespace Capstone.DAL
 
             return reservations;
         }
+
+        //public IList<Reservation> GetReservationsBySiteAndDate(int site_id, DateTime start, DateTime end)
+        //{
+
+
+
+
+
+        //    throw new NotImplementedException();
+        //}
     }
 }
