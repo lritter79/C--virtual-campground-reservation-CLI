@@ -181,7 +181,7 @@ namespace Capstone
 
                 if(dateRange[0] < DateTime.Now || dateRange[1] < DateTime.Now)
                 {
-                    Console.WriteLine("\nCannot Time Travel to the past!");
+                    Console.WriteLine("\nCannot Time Travel to the past! If you figure it out, teach me please!!");
                 }
 
 

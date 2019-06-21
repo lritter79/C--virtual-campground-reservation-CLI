@@ -83,5 +83,36 @@ namespace Capstone.DAL
             return reservations;
         }
 
+        //public IList<Reservation> GetReservationsByName(string reservationName)
+        //{
+        //    List<Reservation> reservations = new List<Reservation>();
+
+        //    try
+        //    {
+        //        using (SqlConnection conn = new SqlConnection(ConnectionString))
+        //        {
+        //            conn.Open();
+
+        //            SqlCommand cmd = new SqlCommand("SELECT * reservation from where @name = reservation.name  order by name, from_date;", conn);
+        //            cmd.Parameters.AddWithValue("@name", reservationName);
+
+        //            SqlDataReader reader = cmd.ExecuteReader();
+
+        //            while (reader.Read())
+        //            {
+        //                reservations.Add(new Reservation(reader));
+        //            }
+        //        }
+
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine("Error: " + ex.Message);
+        //        throw;
+        //    }
+
+        //    return reservations;
+        //}
     }
 }

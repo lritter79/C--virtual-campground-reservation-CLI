@@ -87,12 +87,16 @@ namespace Capstone
             Console.WriteLine("Annual Visitors:".PadRight(20) + park.Visitors);
             Console.WriteLine("\n" + park.Description);
 
-            int infoChoice = CLIHelper.GetInteger("\nSelect an option:\n\t1) View Campgrounds\n\t2)Search For Reservation\n\t3) Return to Previous Menu\n\nEnter Choice: ");
+            int infoChoice = CLIHelper.GetInteger("\nSelect an option:\n\t1) View Campgrounds\n\t2) Search For Reservation\n\t3) Return to Previous Menu\n\nEnter Choice: ");
 
             if(infoChoice == 1)
             {
                 DisplayCampgrounds(park.Park_id, park.Name);
             }
+            //if(infoChoice == 2)
+            //{
+            //    DisplayOpenSites();
+            //}
         }
 
 
@@ -180,5 +184,20 @@ namespace Capstone
                 }
             }
         }
+
+        //public void ReservationSearch()
+        //{
+        //    Console.Clear();
+        //    string reservationString = CLIHelper.GetString("Please enter the name the reservation is under: ");
+
+        //    IList<Reservation> reservations = reservationSqlDAO.GetReservationsByName(reservationString);
+
+        //    DisplayReservations(reservations);
+        //}
+
+        //public void DisplayReservations(IList<Reservation> reservations)
+        //{
+        //    Console.WriteLine()
+        //}
     }
 }
