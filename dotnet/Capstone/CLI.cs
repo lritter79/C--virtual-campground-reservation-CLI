@@ -82,7 +82,8 @@ namespace Capstone
                 }
                 else if (infoChoice == 2)
                 {
-
+                    DateTime[] dateRange = CLIHelper.GetDateRange("Please enter your planned arrival date: ", "Please enter your planned departure date : ");
+                    DisplayOpenSitesEntirePark(Parks[park_id].Park_id, dateRange[0], dateRange[1]);
                 }
                 else
                 {
@@ -128,7 +129,7 @@ namespace Capstone
         public void DisplayOpenSites(int camp_id, DateTime start, DateTime end, decimal dailyCost)
         {
             decimal estimatedCost = dailyCost * Math.Ceiling( (decimal)(end - start).TotalDays);
-
+                        
             IList<Campsite> sites = campsiteSqlDAO.GetSiteAndReservationDate(camp_id, start, end);
 
             Reservation newRes = new Reservation();
@@ -143,28 +144,14 @@ namespace Capstone
                 if (sites.Count == 0)
                 {
                     string searchAgain = CLIHelper.GetString("There are no campsites open during that time, would you like to try different dates? ");
-                    if (searchAgain.ToLower().StartsWith("y"))
-                    {
-
-
-                        DateTime[] dateRange = CLIHelper.GetDateRange("Please enter your planned arrival date: ", "Please enter your planned departure date : ");
-                        sites = campsiteSqlDAO.GetSiteAndReservationDate(camp_id, dateRange[0], dateRange[1]);
-                    }
-                    else
+                    if (searchAgain.ToLower().StartsWith("n"))
                     {
                         done = true;
                     }
                 }
                 else
                 {
-
-                    Console.WriteLine("Site No.".PadRight(10) + "Max Occup.".PadRight(20) + "Accessible?".PadRight(20) + "Max RV Length".PadRight(20) + "Utility".PadRight(20) + "Cost");
-                    foreach (Campsite cs in sites)
-                    {
-                        Console.WriteLine(cs.Site_Id.ToString().PadRight(10) + cs.Max_Occupancy.ToString().PadRight(20) +
-                            cs.IsAccessible.ToString().PadRight(20) + cs.Max_Rv_Length.ToString().PadRight(20) +
-                            cs.HasUtilities.ToString().PadRight(20) + estimatedCost.ToString("C"));
-                    }
+                    DisplayHelper.DisplaySitesWithCost(sites, estimatedCost);
 
                     newRes.Site_Id = CLIHelper.GetInteger("\nPlease Enter the number of the site you would like to reserve (Enter 0 to Cancel): ");
                     if (newRes.Site_Id != 0)
@@ -184,19 +171,25 @@ namespace Capstone
             }
         }
 
-        //public void ReservationSearch()
-        //{
-        //    Console.Clear();
-        //    string reservationString = CLIHelper.GetString("Please enter the name the reservation is under: ");
+        public int DisplayOpenSitesEntirePark(int park_id, DateTime start, DateTime end)
+        {
+            int i = 1;
+            IList<Campground> campgrounds = campgroundSqlDAO.GetCampgroundsByPark(park_id);
 
-        //    IList<Reservation> reservations = reservationSqlDAO.GetReservationsByName(reservationString);
+            //DateTime[] dateRange = CLIHelper.GetDateRange("Please enter your planned arrival date: ", "Please enter your planned departure date : ");
 
-        //    DisplayReservations(reservations);
-        //}
+            foreach(Campground cg in campgrounds)
+            {
+                IList<Campsite> sites = campsiteSqlDAO.GetSiteAndReservationDate(cg.Campground_Id, start, end);
+                DisplayHelper.DisplaySitesWithCost(sites, cg.Daily_fee);
+                i++;
+            }
+            Console.ReadLine();
 
-        //public void DisplayReservations(IList<Reservation> reservations)
-        //{
-        //    Console.WriteLine()
-        //}
+
+
+            return i-1;
+        }
+
     }
 }

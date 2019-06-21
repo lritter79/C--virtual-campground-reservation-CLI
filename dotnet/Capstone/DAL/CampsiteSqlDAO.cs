@@ -91,7 +91,7 @@ namespace Capstone.DAL
             return campsites;
         }
 
-        public IList<Campsite> GetSiteAndReservationDate(int site_id, DateTime start, DateTime end)
+        public IList<Campsite> GetSiteAndReservationDate(int camp_id, DateTime start, DateTime end)
         {
             List<Campsite> sites = new List<Campsite>();
 
@@ -114,7 +114,7 @@ namespace Capstone.DAL
                         "(MONTH(@end) <= campground.open_to_mm))" +
                         "order by site_number;", conn);
 
-                    cmd.Parameters.AddWithValue("@siteid", site_id);
+                    cmd.Parameters.AddWithValue("@siteid", camp_id);
                     cmd.Parameters.AddWithValue("@start", start);
                     cmd.Parameters.AddWithValue("@end", end);
 
