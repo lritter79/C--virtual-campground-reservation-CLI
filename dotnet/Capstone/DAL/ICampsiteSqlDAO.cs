@@ -19,5 +19,11 @@ namespace Capstone.DAL
         /// <param name="campground_id"></param>
         /// <returns></returns>
         IList<Campsite> GetCampSitesByCampgrounds(int campground_id);
+
+        IList<Campsite> GetSiteAndReservationDate(int site_id, DateTime start, DateTime end);
+        
+
+        
+
     }
 }

@@ -123,15 +123,42 @@ namespace Capstone
             Console.WriteLine(park_name);
             Console.WriteLine("\n".PadRight(9) + "Name".PadRight(20) + "Open".PadRight(10) + "Close".PadRight(10) + "Daily Fee");
 
-            int i = 0;
+            int i = 1;
             foreach(Campground cg in campgrounds)
             {
                 Console.WriteLine($"#{i}".PadRight(8) + cg.Name.PadRight(20) + cg.Open_From.ToString().PadRight(10) + cg.Open_To.ToString().PadRight(10) + cg.Daily_fee.ToString("C"));
                 i++;
             }
 
-            int cgChoice = CLIHelper.GetInteger("\nSelect an option:\n\t1) Search for Available Reservation\n\t2) Return to Previous Menu\n\nEnter Choice: ");
+            int cgChoice = CLIHelper.GetInteger("\nSelect a Campground to reserve (or enter 0 to return):  ");
 
+            if (cgChoice != 0)
+            {
+                DateTime reservationStart = CLIHelper.GetDateTime("When is your planned arrival date? ");
+                DateTime reservationEnd = CLIHelper.GetDateTime("When is your planned departure date? ");
+
+                DisplayOpenSites(campgrounds[cgChoice].Campground_Id, reservationStart, reservationEnd, campgrounds[cgChoice].Daily_fee);
+
+
+
+            }
+
+        }
+
+        public void DisplayOpenSites(int camp_id, DateTime start, DateTime end, decimal dailyCost)
+        {
+            decimal estimatedCost = dailyCost * Math.Ceiling( (decimal)(end - start).TotalDays);
+
+            IList<Campsite> sites = campsiteSqlDAO.GetSiteAndReservationDate(camp_id, start, end);
+
+            Console.WriteLine("\n\nResults Matching your Criteria:\n");
+            Console.WriteLine("Site No.".PadRight(10) + "Max Occup.".PadRight(20) + "Accessible?".PadRight(20) + "Max RV Length".PadRight(20) + "Utility".PadRight(20) + "Cost");
+            foreach(Campsite cs in sites)
+            {
+                Console.WriteLine(cs.Site_Id.ToString().PadRight(10) + cs.Max_Occupancy.ToString().PadRight(20) + cs.IsAccessible.ToString().PadRight(20) + cs.Max_Rv_Length.ToString().PadRight(20) + cs.HasUtilities.ToString().PadRight(20) + estimatedCost.ToString("C"));
+            }
+
+            Console.ReadLine();
         }
 
     }

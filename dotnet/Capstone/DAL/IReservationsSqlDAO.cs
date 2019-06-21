@@ -17,7 +17,7 @@ namespace Capstone.DAL
         /// </summary>
         /// <param name="site_id"></param>
         /// <returns></returns>
-        IList<Reservation> GetReservationsBySiteAndDate(int site_id);
+        //IList<Reservation> GetReservationsBySiteAndDate(int site_id, DateTime start, DateTime end);
 
         /// <summary>
         /// 

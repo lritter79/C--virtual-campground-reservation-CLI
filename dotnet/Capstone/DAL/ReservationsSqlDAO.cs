@@ -59,41 +59,6 @@ namespace Capstone.DAL
             return reservations;
         }
 
-        public IList<Reservation> GetReservationsBySiteAndDate(int site_id, DateTime start, DateTime end)
-        {
-            List<Reservation> reservations = new List<Reservation>();
-
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(ConnectionString))
-                {
-                    conn.Open();
-
-                    SqlCommand cmd = new SqlCommand("SELECT * from site  where site_id = @siteid order by name, from_date;", conn);
-
-
-
-                    cmd.Parameters.AddWithValue("@siteid", site_id);
-
-                    SqlDataReader reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        reservations.Add(new Reservation(reader));
-                    }
-                }
-
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error: " + ex.Message);
-                throw;
-            }
-
-            return reservations;
-        }
-
         //public IList<Reservation> GetReservationsBySiteAndDate(int site_id, DateTime start, DateTime end)
         //{
 

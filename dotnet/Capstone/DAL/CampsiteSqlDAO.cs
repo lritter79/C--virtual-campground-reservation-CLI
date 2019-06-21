@@ -90,5 +90,44 @@ namespace Capstone.DAL
 
             return campsites;
         }
+
+        public IList<Campsite> GetSiteAndReservationDate(int site_id, DateTime start, DateTime end)
+        {
+            List<Campsite> sites = new List<Campsite>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(ConnectionString))
+                {
+                    conn.Open();
+
+                    SqlCommand cmd = new SqlCommand("SELECT * from site where site_id in (select site_id from reservation " +
+                        "where site_id = @siteid and from_date > @end or to_date < @start ) " +
+                        "order by site_number;", conn);
+
+                    cmd.Parameters.AddWithValue("@siteid", site_id);
+                    cmd.Parameters.AddWithValue("@start", start);
+                    cmd.Parameters.AddWithValue("@end", end);
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        sites.Add(new Campsite(reader));
+                    }
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+                throw;
+            }
+
+            return sites;
+        }
+
+
     }
 }

@@ -15,7 +15,7 @@ namespace Capstone.Tests
             //Assert
 
             //Act
-            Assert.AreEqual();
+            //Assert.AreEqual();
         }
     }
 }
