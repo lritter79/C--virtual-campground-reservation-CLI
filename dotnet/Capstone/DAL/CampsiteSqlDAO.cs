@@ -123,6 +123,7 @@ namespace Capstone.DAL
             {
                 Console.WriteLine("Error: " + ex.Message);
                 throw;
+                //Add way to reset after getting thrown an invalid date
             }
 
             return sites;

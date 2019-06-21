@@ -18,6 +18,7 @@ namespace Capstone.Tests
         protected int JellyStoneParkId { get; set; }
         protected int BlackLodgeCampgroundId { get; set; }
         protected int WhiteLodgeCampgroundId { get; set; }
+        protected int GreyLodgeCampgroundId { get; set; }
         protected int BlackLodgeSiteId { get; set; }
         protected int WhiteLodgeSiteId { get; set; }
         protected int BlackLodgeReservationId { get; set; }
@@ -53,7 +54,9 @@ namespace Capstone.Tests
                 command = new SqlCommand(cmdText, connection);
                 WhiteLodgeCampgroundId = Convert.ToInt32(command.ExecuteScalar());
 
-                cmdText = $"INSERT INTO campground VALUES ({JellyStoneParkId}, 'White Lodge', 01, 12, 240.00);SELECT SCOPE_IDENTITY();";
+                cmdText = $"INSERT INTO campground VALUES ({JellyStoneParkId}, 'Grey Lodge', 01, 12, 240.00);SELECT SCOPE_IDENTITY();";
+                command = new SqlCommand(cmdText, connection);
+                GreyLodgeCampgroundId = Convert.ToInt32(command.ExecuteScalar());
 
                 //Add sites to campgrounds
                 cmdText = $"INSERT INTO site VALUES ({BlackLodgeCampgroundId}, 9, 100, 1, 0, 1);SELECT SCOPE_IDENTITY();";
@@ -75,7 +78,6 @@ namespace Capstone.Tests
         [TestMethod]
         public void GetData()
         {
-            transaction = new TransactionScope();
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();

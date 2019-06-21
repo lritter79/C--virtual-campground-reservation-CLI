@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Transactions;
 using System.Text;
 using Capstone.Models;
 
@@ -61,7 +62,7 @@ namespace Capstone.DAL
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT * from reservations order by name, from_date;", conn);
+                    SqlCommand cmd = new SqlCommand("SELECT * from reservation order by name, from_date;", conn);
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
