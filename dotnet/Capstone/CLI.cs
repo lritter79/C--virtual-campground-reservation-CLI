@@ -16,7 +16,6 @@ namespace Capstone
 
         private IList<Park> Parks;
 
-
         public ReservationSystemCLI(IParkSqlDAO parkSqlDAO, ICampgroundSqlDAO campgroundSqlDAO, ICampsiteSqlDAO campsiteSqlDAO, IReservationSqlDAO reservationSqlDAO)
         {
             this.parkSqlDAO = parkSqlDAO;
@@ -24,8 +23,6 @@ namespace Capstone
             this.campsiteSqlDAO = campsiteSqlDAO;
             this.reservationSqlDAO = reservationSqlDAO;
         }
-
-        //public IList<Park> parks = parkSqlDAO.GetParks();
 
         /// <summary>
         /// This is the main interface for the reservation system
@@ -50,25 +47,12 @@ namespace Capstone
                 {
                     Console.Clear();
                     DisplayParkInfo(Parks[choice-1]);
-
-
-
-
-
                 }
                 else
                 {
                     done = true;
                 }
-
-
-            }
-            
-
-
-
-
-
+            }         
         }
 
 
@@ -108,9 +92,7 @@ namespace Capstone
             if(infoChoice == 1)
             {
                 DisplayCampgrounds(park.Park_id, park.Name);
-
             }
-
         }
 
 
@@ -134,15 +116,10 @@ namespace Capstone
 
             if (cgChoice != 0)
             {
-                DateTime reservationStart = CLIHelper.GetDateTime("When is your planned arrival date? ");
-                DateTime reservationEnd = CLIHelper.GetDateTime("When is your planned departure date? ");
 
-                DisplayOpenSites(campgrounds[cgChoice-1].Campground_Id, reservationStart, reservationEnd, campgrounds[cgChoice-1].Daily_fee);
-
-
-
+                DateTime[] dateRange = CLIHelper.GetDateRange("Please enter your planned arrival date: ", "Please enter your planned departure date : ");
+                DisplayOpenSites(campgrounds[cgChoice - 1].Campground_Id, dateRange[0], dateRange[1], campgrounds[cgChoice - 1].Daily_fee);
             }
-
         }
 
         public void DisplayOpenSites(int camp_id, DateTime start, DateTime end, decimal dailyCost)
@@ -153,34 +130,55 @@ namespace Capstone
 
             Reservation newRes = new Reservation();
             int confirmation = 0;
+            bool done = false;
 
-            Console.WriteLine("\n\nResults Matching your Criteria:\n");
-            Console.WriteLine("Site No.".PadRight(10) + "Max Occup.".PadRight(20) + "Accessible?".PadRight(20) + "Max RV Length".PadRight(20) + "Utility".PadRight(20) + "Cost");
-            foreach (Campsite cs in sites)
+            while (!done)
             {
-                Console.WriteLine(cs.Site_Id.ToString().PadRight(10) + cs.Max_Occupancy.ToString().PadRight(20) +
-                    cs.IsAccessible.ToString().PadRight(20) + cs.Max_Rv_Length.ToString().PadRight(20) +
-                    cs.HasUtilities.ToString().PadRight(20) + estimatedCost.ToString("C"));
-            }
 
-                newRes.Site_Id = CLIHelper.GetInteger("\nPlease Enter the number of the site you would like to reserve (Enter 0 to Cancel): ");
-                if(newRes.Site_Id != 0)
+                Console.Clear();
+                Console.WriteLine("\n\nResults Matching your Criteria:\n");
+                if (sites.Count == 0)
                 {
-                    newRes.Name = CLIHelper.GetString("\nPlease enter the name to enter the reservation under: ");
-                    newRes.From_Date = start;
-                    newRes.To_Date = end;
-                    newRes.Create_Date = DateTime.Now;
+                    string searchAgain = CLIHelper.GetString("There are no campsites open during that time, would you like to try different dates? ");
+                    if (searchAgain.ToLower().StartsWith("y"))
+                    {
 
-                    confirmation = reservationSqlDAO.BookReservation(newRes);
-                    Console.WriteLine("\n\nYour reservation has been completed, your confirmation # is CGR" + confirmation);
-                    Console.WriteLine("\nPlease make sure to save this for your records.  Press enter to return to the previous Menu.");
-                    Console.ReadLine();
+
+                        DateTime[] dateRange = CLIHelper.GetDateRange("Please enter your planned arrival date: ", "Please enter your planned departure date : ");
+                        sites = campsiteSqlDAO.GetSiteAndReservationDate(camp_id, dateRange[0], dateRange[1]);
+                    }
+                    else
+                    {
+                        done = true;
+                    }
                 }
-            
+                else
+                {
 
-           
-            
+                    Console.WriteLine("Site No.".PadRight(10) + "Max Occup.".PadRight(20) + "Accessible?".PadRight(20) + "Max RV Length".PadRight(20) + "Utility".PadRight(20) + "Cost");
+                    foreach (Campsite cs in sites)
+                    {
+                        Console.WriteLine(cs.Site_Id.ToString().PadRight(10) + cs.Max_Occupancy.ToString().PadRight(20) +
+                            cs.IsAccessible.ToString().PadRight(20) + cs.Max_Rv_Length.ToString().PadRight(20) +
+                            cs.HasUtilities.ToString().PadRight(20) + estimatedCost.ToString("C"));
+                    }
+
+                    newRes.Site_Id = CLIHelper.GetInteger("\nPlease Enter the number of the site you would like to reserve (Enter 0 to Cancel): ");
+                    if (newRes.Site_Id != 0)
+                    {
+                        newRes.Name = CLIHelper.GetString("\nPlease enter the name to enter the reservation under: ");
+                        newRes.From_Date = start;
+                        newRes.To_Date = end;
+                        newRes.Create_Date = DateTime.Now;
+
+                        confirmation = reservationSqlDAO.BookReservation(newRes);
+                        Console.WriteLine("\n\nYour reservation has been completed, your confirmation # is CGR" + confirmation);
+                        Console.WriteLine("\nPlease make sure to save this for your records.  Press enter to return to the previous Menu.");
+                        Console.ReadLine();
+                    }
+                    done = true;
+                }
+            }
         }
-
     }
 }
