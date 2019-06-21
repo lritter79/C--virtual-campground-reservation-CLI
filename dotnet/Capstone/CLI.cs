@@ -16,7 +16,6 @@ namespace Capstone
 
         private IList<Park> Parks;
 
-
         public ReservationSystemCLI(IParkSqlDAO parkSqlDAO, ICampgroundSqlDAO campgroundSqlDAO, ICampsiteSqlDAO campsiteSqlDAO, IReservationSqlDAO reservationSqlDAO)
         {
             this.parkSqlDAO = parkSqlDAO;
@@ -24,8 +23,6 @@ namespace Capstone
             this.campsiteSqlDAO = campsiteSqlDAO;
             this.reservationSqlDAO = reservationSqlDAO;
         }
-
-        //public IList<Park> parks = parkSqlDAO.GetParks();
 
         /// <summary>
         /// This is the main interface for the reservation system
@@ -50,25 +47,12 @@ namespace Capstone
                 {
                     Console.Clear();
                     DisplayParkInfo(Parks[choice-1]);
-
-
-
-
-
                 }
                 else
                 {
                     done = true;
                 }
-
-
-            }
-            
-
-
-
-
-
+            }         
         }
 
 
@@ -108,9 +92,7 @@ namespace Capstone
             if(infoChoice == 1)
             {
                 DisplayCampgrounds(park.Park_id, park.Name);
-
             }
-
         }
 
 
@@ -136,22 +118,8 @@ namespace Capstone
             {
 
                 DateTime[] dateRange = CLIHelper.GetDateRange("Please enter your planned arrival date: ", "Please enter your planned departure date : ");
-                //DateTime reservationStart = CLIHelper.GetDateTime("When is your planned arrival date? ");
-                //DateTime reservationEnd = CLIHelper.GetDateTime("When is your planned departure date? ");
-                //if (reservationEnd < reservationStart)
-                //{
-                //    Console.WriteLine("End date cannot be before Start date.\n");
-                //}
-                //else
-                //{
                 DisplayOpenSites(campgrounds[cgChoice - 1].Campground_Id, dateRange[0], dateRange[1], campgrounds[cgChoice - 1].Daily_fee);
-
-                //}
-
-
-
             }
-
         }
 
         public void DisplayOpenSites(int camp_id, DateTime start, DateTime end, decimal dailyCost)
@@ -177,35 +145,15 @@ namespace Capstone
 
 
                         DateTime[] dateRange = CLIHelper.GetDateRange("Please enter your planned arrival date: ", "Please enter your planned departure date : ");
-                        //DateTime reservationStart = CLIHelper.GetDateTime("When is your planned arrival date? ");
-                        //DateTime reservationEnd = CLIHelper.GetDateTime("When is your planned departure date? ");
-                        //if(reservationEnd < reservationStart)
-                        //{
-                        //    Console.WriteLine("End date cannot be before Start date.\n");
-                        //}
-                        //else
-                        //{
                         sites = campsiteSqlDAO.GetSiteAndReservationDate(camp_id, dateRange[0], dateRange[1]);
-
-                        //}
-
-
-
                     }
                     else
                     {
                         done = true;
                     }
-
-
                 }
                 else
                 {
-
-
-
-
-
 
                     Console.WriteLine("Site No.".PadRight(10) + "Max Occup.".PadRight(20) + "Accessible?".PadRight(20) + "Max RV Length".PadRight(20) + "Utility".PadRight(20) + "Cost");
                     foreach (Campsite cs in sites)
@@ -230,15 +178,7 @@ namespace Capstone
                     }
                     done = true;
                 }
-
             }
-            
-
-           
-            
         }
-
-        
-
     }
 }

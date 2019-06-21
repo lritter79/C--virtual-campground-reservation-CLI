@@ -69,7 +69,7 @@ namespace Capstone.DAL
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT * from campsites where site_id = @campgroundid order by name;", conn);
+                    SqlCommand cmd = new SqlCommand("SELECT * from campsites where site_id = @campgroundid;", conn);
                     cmd.Parameters.AddWithValue("@campgroundid", campground_id);
 
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -104,10 +104,14 @@ namespace Capstone.DAL
 
                     //selects from the DB any campsites in the selected campground
                     //that do not have current reservations during that date range
+                    //and the park is open during that month
                     SqlCommand cmd = new SqlCommand("SELECT TOP 5 * from site " +
-                        "where site_id = @siteid and site_id not in (select site_id from reservation " +
-                        "where site_id = @siteid and ((from_date >= @start and from_date <= @end) or " +
+                        "join campground on site.campground_id = campground.campground_id " +
+                        "where campground.campground_id = @siteid and site_id not in (select site_id from reservation " +
+                        "where campground.campground_id = @siteid and ((from_date >= @start and from_date <= @end) or " +
                         "(to_date <= @end and to_date >= @start ))) " +
+                        "and ((MONTH(@start) >= campground.open_from_mm) and " +
+                        "(MONTH(@end) <= campground.open_to_mm))" +
                         "order by site_number;", conn);
 
                     cmd.Parameters.AddWithValue("@siteid", site_id);
