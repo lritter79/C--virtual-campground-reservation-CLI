@@ -39,14 +39,14 @@ namespace Capstone
 
                 PrintHeader();
 
-                DisplayParks(Parks);
+                DisplayHelper.DisplayParks(Parks);
 
                 int choice = CLIHelper.GetInteger("\nPlease Enter the Park you would like information for (Or enter 0 to quit): ");
 
                 if(choice != 0)
                 {
-                    Console.Clear();
-                    DisplayParkInfo(Parks[choice-1]);
+                    ParkInfoMenu(choice - 1);
+
                 }
                 else
                 {
@@ -64,65 +64,64 @@ namespace Capstone
             
         }
 
-
-        public void DisplayParks(IList<Park> parks)
+        public void ParkInfoMenu(int park_id)
         {
-            int i = 1;
+            Console.Clear();
+            bool done = false;
 
-            foreach(Park park in parks)
+            while (!done)
             {
-                Console.WriteLine($"\t{i})  {park.Name} ");
-                i++;
+
+
+                DisplayHelper.DisplayParkInfo(Parks[park_id]);
+                int infoChoice = CLIHelper.GetInteger("\nSelect an option:\n\t1) View Campgrounds\n\t2) Show all available Campsites for this Park\n\t3) Return to Previous Menu\n\nEnter Choice: ");
+
+                if (infoChoice == 1)
+                {
+                    DisplayCampgrounds(Parks[park_id].Park_id, Parks[park_id].Name);
+                }
+                else if (infoChoice == 2)
+                {
+
+                }
+                else
+                {
+                    done = true;
+                }
             }
-        }
 
+                    
 
-        public void DisplayParkInfo(Park park)
-        {
-            Console.WriteLine("Park Information Screen\n");
-            Console.WriteLine(park.Name);
-            Console.WriteLine("Location:".PadRight(20) + park.Location);
-            Console.WriteLine("Established:".PadRight(20) + park.Establish_date);
-            Console.WriteLine("Area".PadRight(20) + park.Area);
-            Console.WriteLine("Annual Visitors:".PadRight(20) + park.Visitors);
-            Console.WriteLine("\n" + park.Description);
-
-            int infoChoice = CLIHelper.GetInteger("\nSelect an option:\n\t1) View Campgrounds\n\t2) Search For Reservation\n\t3) Return to Previous Menu\n\nEnter Choice: ");
-
-            if(infoChoice == 1)
-            {
-                DisplayCampgrounds(park.Park_id, park.Name);
-            }
-            //if(infoChoice == 2)
-            //{
-            //    DisplayOpenSites();
-            //}
         }
 
 
         public void DisplayCampgrounds(int park_id, string park_name)
         {
             IList<Campground> campgrounds = campgroundSqlDAO.GetCampgroundsByPark(park_id);
+            bool done = false;
 
-            Console.Clear();
-            Console.WriteLine("Park Campgrounds");
-            Console.WriteLine(park_name);
-            Console.WriteLine("\n".PadRight(9) + "Name".PadRight(20) + "Open".PadRight(10) + "Close".PadRight(10) + "Daily Fee");
-
-            int i = 1;
-            foreach(Campground cg in campgrounds)
-            {
-                Console.WriteLine($"#{i}".PadRight(8) + cg.Name.PadRight(20) + cg.Open_From.ToString().PadRight(10) + cg.Open_To.ToString().PadRight(10) + cg.Daily_fee.ToString("C"));
-                i++;
-            }
-
-            int cgChoice = CLIHelper.GetInteger("\nSelect a Campground to reserve (or enter 0 to return):  ");
-
-            if (cgChoice != 0)
+            while (!done)
             {
 
-                DateTime[] dateRange = CLIHelper.GetDateRange("Please enter your planned arrival date: ", "Please enter your planned departure date : ");
-                DisplayOpenSites(campgrounds[cgChoice - 1].Campground_Id, dateRange[0], dateRange[1], campgrounds[cgChoice - 1].Daily_fee);
+
+                Console.Clear();
+                Console.WriteLine("Park Campgrounds");
+                Console.WriteLine(park_name);
+
+                DisplayHelper.DisplayCampgrounds(campgrounds);
+
+                int cgChoice = CLIHelper.GetInteger("\nSelect a Campground to reserve (or enter 0 to return):  ");
+
+                if (cgChoice != 0)
+                {
+
+                    DateTime[] dateRange = CLIHelper.GetDateRange("Please enter your planned arrival date: ", "Please enter your planned departure date : ");
+                    DisplayOpenSites(campgrounds[cgChoice - 1].Campground_Id, dateRange[0], dateRange[1], campgrounds[cgChoice - 1].Daily_fee);
+                }
+                else
+                {
+                    done = true;
+                }
             }
         }
 
