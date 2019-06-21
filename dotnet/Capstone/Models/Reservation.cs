@@ -10,6 +10,8 @@ namespace Capstone.Models
     {
         public Reservation() { }
 
+
+
         public Reservation(SqlDataReader reader)
         {
             Reservation_Id = Convert.ToInt32(reader["reservation_id"]);
@@ -22,11 +24,11 @@ namespace Capstone.Models
 
 
         public int Reservation_Id { get; }
-        public int Site_Id { get; }
-        public string Name { get; }
-        public DateTime From_Date { get; }
-        public DateTime To_Date { get; }
-        public DateTime Create_Date { get; }
+        public int Site_Id { get; set; }
+        public string Name { get; set; }
+        public DateTime From_Date { get; set; }
+        public DateTime To_Date { get; set; }
+        public DateTime Create_Date { get; set; }
 
 
     }

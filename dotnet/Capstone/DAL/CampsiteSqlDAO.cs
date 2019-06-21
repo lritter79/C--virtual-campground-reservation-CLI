@@ -101,7 +101,7 @@ namespace Capstone.DAL
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT * from site where site_id in (select site_id from reservation " +
+                    SqlCommand cmd = new SqlCommand("SELECT TOP 5 * from site where site_id in (select site_id from reservation " +
                         "where site_id = @siteid and from_date > @end or to_date < @start ) " +
                         "order by site_number;", conn);
 
