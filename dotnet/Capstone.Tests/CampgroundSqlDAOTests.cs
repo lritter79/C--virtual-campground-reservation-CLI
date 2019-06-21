@@ -21,7 +21,7 @@ namespace Capstone.Tests
             IList<Campground> campGrounds = dao.GetCampgrounds();
             //Assert
 
-            Assert.AreEqual(campGrounds.Count, 2);
+            Assert.AreEqual(3, campGrounds.Count);
         }
 
     
@@ -31,10 +31,11 @@ namespace Capstone.Tests
         public void GetCampgroundsByParkTest()
         {
             //Arrange
-
+            CampgroundSqlDAO dao = new CampgroundSqlDAO(ConnectionString);
             //Assert
-
+            IList<Campground> campGrounds = dao.GetCampgroundsByPark(TwinPeaksParkId);
             //Act
+            Assert.AreEqual(2, campGrounds.Count);
         }
 
     }

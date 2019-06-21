@@ -32,7 +32,7 @@ namespace Capstone.DAL
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT * from campsites order by name;", conn);
+                    SqlCommand cmd = new SqlCommand("SELECT * from site order by site_number;", conn);
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -58,7 +58,7 @@ namespace Capstone.DAL
         /// </summary>
         /// <param name="campground_id"></param>
         /// <returns></returns>
-        public IList<Campsite> GetCampSitesByCampgrounds(int campground_id)
+        public IList<Campsite> GetCampSitesByCampgrounds(int campgroundId)
         {
             List<Campsite> campsites = new List<Campsite>();
 
@@ -69,8 +69,8 @@ namespace Capstone.DAL
                 {
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT * from campsites where site_id = @campgroundid;", conn);
-                    cmd.Parameters.AddWithValue("@campgroundid", campground_id);
+                    SqlCommand cmd = new SqlCommand("SELECT * from site where campground_id = @campgroundid;", conn);
+                    cmd.Parameters.AddWithValue("@campgroundid", campgroundId);
 
                     SqlDataReader reader = cmd.ExecuteReader();
 
