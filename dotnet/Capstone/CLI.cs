@@ -134,10 +134,19 @@ namespace Capstone
 
             if (cgChoice != 0)
             {
-                DateTime reservationStart = CLIHelper.GetDateTime("When is your planned arrival date? ");
-                DateTime reservationEnd = CLIHelper.GetDateTime("When is your planned departure date? ");
 
-                DisplayOpenSites(campgrounds[cgChoice-1].Campground_Id, reservationStart, reservationEnd, campgrounds[cgChoice-1].Daily_fee);
+                DateTime[] dateRange = CLIHelper.GetDateRange("Please enter your planned arrival date: ", "Please enter your planned departure date : ");
+                //DateTime reservationStart = CLIHelper.GetDateTime("When is your planned arrival date? ");
+                //DateTime reservationEnd = CLIHelper.GetDateTime("When is your planned departure date? ");
+                //if (reservationEnd < reservationStart)
+                //{
+                //    Console.WriteLine("End date cannot be before Start date.\n");
+                //}
+                //else
+                //{
+                DisplayOpenSites(campgrounds[cgChoice - 1].Campground_Id, dateRange[0], dateRange[1], campgrounds[cgChoice - 1].Daily_fee);
+
+                //}
 
 
 
@@ -158,17 +167,28 @@ namespace Capstone
             while (!done)
             {
 
-
+                Console.Clear();
                 Console.WriteLine("\n\nResults Matching your Criteria:\n");
                 if (sites.Count == 0)
                 {
                     string searchAgain = CLIHelper.GetString("There are no campsites open during that time, would you like to try different dates? ");
                     if (searchAgain.ToLower().StartsWith("y"))
                     {
-                        DateTime reservationStart = CLIHelper.GetDateTime("When is your planned arrival date? ");
-                        DateTime reservationEnd = CLIHelper.GetDateTime("When is your planned departure date? ");
 
-                        sites = campsiteSqlDAO.GetSiteAndReservationDate(camp_id, reservationStart, reservationEnd);
+
+                        DateTime[] dateRange = CLIHelper.GetDateRange("Please enter your planned arrival date: ", "Please enter your planned departure date : ");
+                        //DateTime reservationStart = CLIHelper.GetDateTime("When is your planned arrival date? ");
+                        //DateTime reservationEnd = CLIHelper.GetDateTime("When is your planned departure date? ");
+                        //if(reservationEnd < reservationStart)
+                        //{
+                        //    Console.WriteLine("End date cannot be before Start date.\n");
+                        //}
+                        //else
+                        //{
+                        sites = campsiteSqlDAO.GetSiteAndReservationDate(camp_id, dateRange[0], dateRange[1]);
+
+                        //}
+
 
 
                     }

@@ -139,6 +139,60 @@ namespace Capstone
             return boolValue;
         }
 
+        public static DateTime[] GetDateRange(string firstMessage, string secondMessage)
+        {
+            string input = "";
+            DateTime[] dateRange = new DateTime[2];
 
+            int numberOfAttempts = 0;
+            bool done = false;
+
+            while (!done)
+            {
+
+
+                do
+                {
+                    if (numberOfAttempts > 0)
+                    {
+                        Console.WriteLine("Invalid input format. Please try again\n");
+                    }
+
+                    Console.Write(firstMessage + " ");
+                    input = Console.ReadLine();
+                    numberOfAttempts++;
+                }
+                while (!DateTime.TryParse(input, out dateRange[0]));
+
+                numberOfAttempts = 0;
+
+                do
+                {
+                    if (numberOfAttempts > 0)
+                    {
+                        Console.WriteLine("Invalid input format. Please try again\n");
+                    }
+
+                    Console.Write(secondMessage + " ");
+                    input = Console.ReadLine();
+                    numberOfAttempts++;
+                }
+                while (!DateTime.TryParse(input, out dateRange[1]));
+
+                if(dateRange[0] < dateRange[1])
+                {
+                    done = true;
+                }
+                else
+                {
+                    Console.WriteLine("\nEnd date cannot be before Start Date, please try again.\n");
+                }
+            }
+
+
+
+
+            return dateRange;
+        }
     }
 }
