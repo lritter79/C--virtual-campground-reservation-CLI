@@ -10,17 +10,18 @@ namespace Capstone.Tests
     [TestClass]    
     public class ParkSqlDAOTests: DatabaseTests
     {
+
         [TestMethod]
-        [DataRow(1,"Twin Peaks")]
-        public void GetParksTest(int ExpectedParkId, string ExpectedParkName)
+
+        public void GetParksTest()
         {
             //Arrange
             ParkSqlDAO dao = new ParkSqlDAO(ConnectionString);
             //Act
             IList<Park> parks = dao.GetParks();
             //Assert
-            Assert.AreEqual(ExpectedParkId, 1);
-            Assert.AreEqual(ExpectedParkName, "Twin Peaks");
+            Assert.IsTrue(parks.Count == 2);
+
         }
 
     }

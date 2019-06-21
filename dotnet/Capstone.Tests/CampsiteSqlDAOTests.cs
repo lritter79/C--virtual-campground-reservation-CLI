@@ -14,15 +14,24 @@ namespace Capstone.Tests
     {
 
         [TestMethod]
-        public void GetSiteTest()
+        public void GetCampsites()
+        {
+            //Arrange
+            CampsiteSqlDAO dao = new CampsiteSqlDAO(ConnectionString);
+            //Act
+            IList<Campsite> test = dao.GetCampsites();
+            //Assert
+            Assert.IsTrue(test.Count == 2);
+        }
+
+        [TestMethod]
+        public void GetCampSitesByCampgrounds()
         {
             //Arrange
 
-            //Assert
-
             //Act
+
+            //Asserts
         }
-
-
     }
 }
