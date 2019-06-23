@@ -74,7 +74,8 @@ namespace Capstone
 
 
                 DisplayHelper.DisplayParkInfo(Parks[park_id]);
-                int infoChoice = CLIHelper.GetInteger("\nSelect an option:\n\t1) View Campgrounds\n\t2) Show all available Campsites for this Park\n\t3) Return to Previous Menu\n\nEnter Choice: ");
+                int infoChoice = CLIHelper.GetInteger("\nSelect an option:\n\t1) View Campgrounds\n\t2) Show all available Campsites for this Park\n\t" +
+                    "3) Diplay Reservations in this park for the next 30 days \n\t4) Return to Previous Menu\n\nEnter Choice: ");
 
                 if (infoChoice == 1)
                 {
@@ -88,14 +89,16 @@ namespace Capstone
                     //IList<Campsite> sitesByPark = campsiteSqlDAO.GetAvailabeSitesByParkWithoutDate(Parks[park_id].Park_id);
                     //DisplayHelper.DisplaySites(sitesByPark);
                 }
+                else if (infoChoice == 3)
+                {
+                    IList < Reservation > reservations = reservationSqlDAO.GetReservationsNext30ByPark(park_id+1);
+                    DisplayHelper.DisplayReservations(reservations);
+                }
                 else
                 {
                     done = true;
                 }
             }
-
-                    
-
         }
 
 
@@ -135,8 +138,6 @@ namespace Capstone
                         
             IList<Campsite> sites = campsiteSqlDAO.GetAvailableSitesFilteredByDate(camp_id, start, end);
 
-            //Reservation newRes = new Reservation();
-            //int confirmation = 0;
             bool done = false;
 
             while (!done)
@@ -158,19 +159,6 @@ namespace Capstone
 
                     MakeReservation(sites, start, end);
 
-                    //newRes.Site_Id = CLIHelper.GetInteger("\nPlease Enter the number of the site you would like to reserve (Enter 0 to Cancel): ");
-                    //if (newRes.Site_Id != 0)
-                    //{
-                    //    newRes.Name = CLIHelper.GetString("\nPlease enter the name to enter the reservation under: ");
-                    //    newRes.From_Date = start;
-                    //    newRes.To_Date = end;
-                    //    newRes.Create_Date = DateTime.Now;
-
-                    //    confirmation = reservationSqlDAO.BookReservation(newRes);
-                    //    Console.WriteLine("\n\nYour reservation has been completed, your confirmation # is CGR" + confirmation);
-                    //    Console.WriteLine("\nPlease make sure to save this for your records.  Press enter to return to the previous Menu.");
-                    //    Console.ReadLine();
-                    //}
                     done = true;
                 }
             }
@@ -193,12 +181,8 @@ namespace Capstone
             }
 
             MakeReservation(allSites, start, end);
-            //Console.ReadLine();
 
-            
-
-
-            return i - 1;
+            return i;
         }
 
         public void MakeReservation (IList<Campsite> sites, DateTime start, DateTime end)

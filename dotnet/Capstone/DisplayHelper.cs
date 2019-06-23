@@ -54,18 +54,10 @@ namespace Capstone
             foreach (Campsite cs in campsites)
             {
                 choicenumber++;
-                Console.WriteLine($"{choicenumber})".PadRight(9) + $"{cs.Site_Number}".PadRight(20) + $"{cs.Max_Occupancy}".PadRight(20) + $"{cs.IsAccessible}".PadRight(20)+ $"{cs.Max_Rv_Length}".PadRight(20) + $"{cs.HasUtilities}");
+                Console.WriteLine($"{choicenumber})".PadRight(9) + $"{cs.Site_Number}".PadRight(20) + $"{cs.Max_Occupancy}".PadRight(20) + $"{cs.IsAccessible}".PadRight(20)+ $"{cs.Max_Rv_Length}".PadRight(20) + cs.HasUtilities);
                 
             }
             return choicenumber;
-        }
-
-
-        public static int DisplayAvailableSitesForEntirePark(int park_id)
-        {
-
-
-            return 0;
         }
 
 
@@ -84,7 +76,13 @@ namespace Capstone
 
         public static void DisplayReservations(IList<Reservation> reservations)
         {
+            Console.WriteLine("Site_ID".PadRight(10) + "Confirmation #".PadRight(20) + "Reservation Name".PadRight(40) + "Start date".PadRight(15) + "End date".PadRight(15) + "Made on");
 
+            foreach(Reservation res in reservations)
+            {
+                Console.WriteLine($"{res.Site_Id}".PadRight(10) + $"CGR{res.Reservation_Id}".PadRight(20) + $"{res.Name}".PadRight(40) + res.From_Date.ToShortDateString().PadRight(15) + res.To_Date.ToShortDateString().PadRight(15) + res.Create_Date.ToShortDateString());
+
+            }
 
         }
 
