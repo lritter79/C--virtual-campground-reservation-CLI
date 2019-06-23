@@ -29,26 +29,5 @@ namespace Capstone.Tests
         }
 
 
-        [TestMethod]
-        public void Returns_Count_plus_1_when_adding_new_reservation()
-        {
-            //Arrange
-            ReservationSqlDAO reservationSqlDAO = new ReservationSqlDAO(ConnectionString);
-
-            Reservation test = new Reservation();
-            test.Site_Id = BlackLodgeSiteId;
-            test.Name = "testname";
-            test.From_Date = DateTime.Now;
-            test.To_Date = DateTime.Now.AddDays(5);
-            test.Create_Date = DateTime.Now;
-
-            //Act
-            reservationSqlDAO.BookReservation(test);
-
-            //Assert
-            Assert.AreEqual(2, reservationSqlDAO.GetReservations().Count);
-
-
-        }
     }
 }
