@@ -40,7 +40,7 @@ namespace Capstone
             {
                 if (numberOfAttempts > 0)
                 {
-                    Console.WriteLine("Invalid input format. Please try again");
+                    Console.WriteLine("Invalid input. Please try again");
                 }
 
                 Console.Write(message + " ");
@@ -179,7 +179,7 @@ namespace Capstone
                 }
                 while (!DateTime.TryParse(input, out dateRange[1]));
 
-                if(dateRange[0] < DateTime.Now || dateRange[1] < DateTime.Now)
+                if(dateRange[0] < DateTime.Now || dateRange[1] < DateTime.Now || dateRange[1] < dateRange[0])
                 {
                     Console.WriteLine("\nCannot Time Travel to the past! If you figure it out, teach me please!!");
                 }

@@ -82,7 +82,8 @@ namespace Capstone
                 }
                 else if (infoChoice == 2)
                 {
-
+                    IList<Campsite> sitesByPark = campsiteSqlDAO.GetAvailabeSitesByParkWithoutDate(Parks[park_id].Park_id);
+                    DisplayHelper.DisplaySites(sitesByPark);
                 }
                 else
                 {

@@ -50,8 +50,18 @@ namespace Capstone
 
         public static void DisplaySites(IList<Campsite> campsites)
         {
+            Console.WriteLine("\n".PadRight(9) + "Site Number".PadRight(20) + "Max. Occupancy".PadRight(20) + "Accessible".PadRight(20) + "Max. RV Length".PadRight(20) + "Utilities");
 
+            
+            foreach (Campsite cs in campsites)
+            {
+                Console.WriteLine("\n".PadRight(9) + cs.Site_Number.ToString().PadRight(20) + cs.Max_Occupancy.ToString().PadRight(20) + cs.IsAccessible.ToString().PadRight(20)+ cs.Max_Rv_Length.ToString().PadRight(20) + cs.HasUtilities.ToString());
+                
+            }
         }
+
+      
+
 
         public static void DisplayReservations(IList<Reservation> reservations)
         {
