@@ -53,8 +53,7 @@ namespace Capstone.DAL
             return campsites;
         }
 
-        /// <summary>
-        /// Gets a list of the campsites that are in a specific campground
+
         /// </summary>
         /// <param name="campground_id"></param>
         /// <returns></returns>
@@ -91,7 +90,7 @@ namespace Capstone.DAL
             return campsites;
         }
 
-        public IList<Campsite> GetSiteAndReservationDate(int camp_id, DateTime start, DateTime end)
+        public IList<Campsite> GetSiteAndReservationDate(int campground_id, DateTime start, DateTime end)
         {
             List<Campsite> sites = new List<Campsite>();
 
@@ -114,7 +113,7 @@ namespace Capstone.DAL
                         "(MONTH(@end) <= campground.open_to_mm))" +
                         "order by site_number;", conn);
 
-                    cmd.Parameters.AddWithValue("@siteid", camp_id);
+                    cmd.Parameters.AddWithValue("@siteid", campground_id);
                     cmd.Parameters.AddWithValue("@start", start);
                     cmd.Parameters.AddWithValue("@end", end);
 
@@ -185,6 +184,45 @@ namespace Capstone.DAL
             return sites;
         }
 
+        public IList<Campsite> GetAvailabeSitesByParkWithoutDate(int park_id)
+        {
+            List<Campsite> sites = new List<Campsite>();
+
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(ConnectionString))
+                {
+                    conn.Open();
+
+
+                    //selects from the DB any campsites in the selected campground
+                    //that do not have current reservations during that date range
+                    //and the park is open during that month
+                    SqlCommand cmd = new SqlCommand("SELECT * from site where campground_id in" + " (select campground_id from campground where park_id = @park)" +
+" order by site_number; ", conn);
+
+                    cmd.Parameters.AddWithValue("@park", park_id);
+                    
+
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        sites.Add(new Campsite(reader));
+                    }
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+                throw;
+                
+            }
+
+            return sites;
+        }
 
     }
 }

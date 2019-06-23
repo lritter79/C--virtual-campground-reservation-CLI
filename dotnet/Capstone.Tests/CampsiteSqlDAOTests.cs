@@ -25,13 +25,41 @@ namespace Capstone.Tests
         }
 
         [TestMethod]
-        public void GetCampSitesByCampgrounds()
+        public void GetCampSitesByCampgroundsTest()
         {
             //Arrange
-
+            CampsiteSqlDAO dao = new CampsiteSqlDAO(ConnectionString);
             //Act
-
+            IList<Campsite> test = dao.GetCampSitesByCampgrounds(WhiteLodgeCampgroundId);
             //Asserts
+            Assert.IsTrue(test.Count == 1);
+        }
+        
+
+        [TestMethod]
+        public void GetSiteAndReservationDateTest()
+        {
+            //Arrange
+            CampsiteSqlDAO dao = new CampsiteSqlDAO(ConnectionString);
+            DateTime fromDate = new DateTime(1991, 2, 26, 12, 0, 0);
+            DateTime toDate = new DateTime(1991, 4, 26, 12, 0, 0);
+            //Act
+            IList<Campsite> test = dao.GetSiteAndReservationDate(WhiteLodgeCampgroundId,fromDate, toDate);
+            //Asserts
+            Assert.IsTrue(test.Count == 1);
+        }
+        
+        [TestMethod]
+        public void GetAvailabeSitesByParkTest()
+        {
+            //Arrange
+            CampsiteSqlDAO dao = new CampsiteSqlDAO(ConnectionString);
+            DateTime fromDate = new DateTime(1991, 2, 27, 12, 0, 0);
+            DateTime toDate = new DateTime(1991, 4, 24, 12, 0, 0);
+            //Act
+            IList<Campsite> test = dao.GetAvailabeSitesByPark(TwinPeaksParkId, fromDate, toDate);
+            //Asserts
+            Assert.IsTrue(test.Count == 2);
         }
     }
 }

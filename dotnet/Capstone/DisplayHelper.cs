@@ -49,17 +49,18 @@ namespace Capstone
 
         public static int DisplaySitesWithCost(IList<Campsite> campsites, decimal estimatedCost)
         {
-            int i = 0;
-            Console.WriteLine("Site No.".PadRight(10) + "Max Occup.".PadRight(20) + "Accessible?".PadRight(20) + "Max RV Length".PadRight(20) + "Utility".PadRight(20) + "Cost");
+            Console.WriteLine("\n".PadRight(9) + "Site Number".PadRight(20) + "Max. Occupancy".PadRight(20) + "Accessible".PadRight(20) + "Max. RV Length".PadRight(20) + "Utilities");
+
+            
             foreach (Campsite cs in campsites)
             {
-                Console.WriteLine(cs.Site_Id.ToString().PadRight(10) + cs.Max_Occupancy.ToString().PadRight(20) +
-                    cs.IsAccessible.ToString().PadRight(20) + cs.Max_Rv_Length.ToString().PadRight(20) +
-                    cs.HasUtilities.ToString().PadRight(20) + estimatedCost.ToString("C"));
-                i++;
+                Console.WriteLine("\n".PadRight(9) + cs.Site_Number.ToString().PadRight(20) + cs.Max_Occupancy.ToString().PadRight(20) + cs.IsAccessible.ToString().PadRight(20)+ cs.Max_Rv_Length.ToString().PadRight(20) + cs.HasUtilities.ToString());
+                
             }
-            return i;
         }
+
+      
+
 
         public static void DisplayReservations(IList<Reservation> reservations)
         {

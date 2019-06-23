@@ -20,7 +20,6 @@ namespace Capstone.Tests
             //Act
             IList<Campground> campGrounds = dao.GetCampgrounds();
             //Assert
-
             Assert.AreEqual(3, campGrounds.Count);
         }
 
