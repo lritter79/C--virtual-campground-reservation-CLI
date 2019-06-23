@@ -54,7 +54,7 @@ namespace Capstone
             foreach (Campsite cs in campsites)
             {
                 choicenumber++;
-                Console.WriteLine($"{choicenumber})".PadRight(9) + $"{cs.Site_Number}".PadRight(20) + $"{cs.Max_Occupancy}".PadRight(20) + $"{cs.IsAccessible}".PadRight(20)+ $"{cs.Max_Rv_Length}".PadRight(20) + cs.HasUtilities);
+                Console.WriteLine($"{choicenumber})".PadRight(9) + $"{cs.Site_Number}".PadRight(20) + $"{cs.Max_Occupancy}".PadRight(20) + (cs.IsAccessible ? "yes" : "no").PadRight(20)+ $"{cs.Max_Rv_Length}".PadRight(20) + (cs.HasUtilities ? "yes" : "no"));
                 
             }
             return choicenumber;
@@ -68,7 +68,7 @@ namespace Capstone
             
                foreach (Campsite cs in campsites)
                {
-                    Console.WriteLine("\n".PadRight(9) + cs.Site_Number.ToString().PadRight(20) + cs.Max_Occupancy.ToString().PadRight(20) + cs.IsAccessible.ToString().PadRight(20) + cs.Max_Rv_Length.ToString().PadRight(20) + cs.HasUtilities.ToString());
+                    Console.WriteLine("\n".PadRight(9) + cs.Site_Number.ToString().PadRight(20) + cs.Max_Occupancy.ToString().PadRight(20) + (cs.IsAccessible ? "yes" : "no").PadRight(20) + cs.Max_Rv_Length.ToString().PadRight(20) + (cs.HasUtilities ? "yes" : "no"));
                 
                }
         }
