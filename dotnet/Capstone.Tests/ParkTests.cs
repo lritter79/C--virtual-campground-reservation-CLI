@@ -11,7 +11,6 @@ namespace Capstone.Tests
     [TestClass]
     public class ParkTests: DatabaseTests
     {
-
         [TestMethod]
         public void ConstructsParksProperly()
         {
@@ -28,14 +27,6 @@ namespace Capstone.Tests
             Assert.AreEqual("2112", parks[0].Area);
             Assert.AreEqual(119, parks[0].Visitors);
             Assert.AreEqual(description, parks[0].Description);
-
-
-
-
-
-
-
         }
-
     }
 }
