@@ -83,36 +83,39 @@ namespace Capstone.DAL
             return reservations;
         }
 
-        //public IList<Reservation> GetReservationsByName(string reservationName)
-        //{
-        //    List<Reservation> reservations = new List<Reservation>();
+        public IList<Reservation> GetReservationsNext30ByPark(int park_id)
+        {
+            List<Reservation> reservations = new List<Reservation>();
 
-        //    try
-        //    {
-        //        using (SqlConnection conn = new SqlConnection(ConnectionString))
-        //        {
-        //            conn.Open();
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(ConnectionString))
+                {
 
-        //            SqlCommand cmd = new SqlCommand("SELECT * reservation from where @name = reservation.name  order by name, from_date;", conn);
-        //            cmd.Parameters.AddWithValue("@name", reservationName);
+                    conn.Open();
 
-        //            SqlDataReader reader = cmd.ExecuteReader();
+                    SqlCommand cmd = new SqlCommand($"SELECT * from reservation Join site on reservation.site_id = site.site_id " +
+                        $"join campground on site.campground_id = campground.campground_id " +
+                        $"where campground.park_id = @parkid and from_date >= GETDATE() and from_date <= DATEADD(day, 30, GETDATE()) order by from_date;", conn);
+                    cmd.Parameters.AddWithValue("@parkid", park_id);
 
-        //            while (reader.Read())
-        //            {
-        //                reservations.Add(new Reservation(reader));
-        //            }
-        //        }
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        reservations.Add(new Reservation(reader));
+                    }
+                }
 
 
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine("Error: " + ex.Message);
-        //        throw;
-        //    }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+                throw;
+            }
 
-        //    return reservations;
-        //}
+            return reservations;
+        }
     }
 }

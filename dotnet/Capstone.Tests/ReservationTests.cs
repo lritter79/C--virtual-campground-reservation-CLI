@@ -14,15 +14,20 @@ namespace Capstone.Tests
     {
 
         [TestMethod]
-        public void Returns_Count_plus_1_when_adding_new_reservation()
+        public void ConstructsReservationsProperly()
         {
-            //Arrange
-            Reservation test = new Reservation();
+            //Assign
+            ReservationSqlDAO reservationSqlDAO = new ReservationSqlDAO(ConnectionString);
+            IList<Reservation> reservations = reservationSqlDAO.GetReservations();
 
             //Assert
-
-            //Act
-            //Assert.AreEqual();
+            Assert.AreEqual(BlackLodgeSiteId, reservations[0].Site_Id);
+            Assert.AreEqual("Dale Cooper", reservations[0].Name);
+            Assert.AreEqual("2/26/1991", reservations[0].From_Date.ToShortDateString());
+            Assert.AreEqual("4/26/1991", reservations[0].To_Date.ToShortDateString());
+            Assert.AreEqual("4/27/1991", reservations[0].Create_Date.ToShortDateString());
         }
+
+
     }
 }

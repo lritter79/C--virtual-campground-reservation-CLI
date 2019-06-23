@@ -8,7 +8,7 @@ namespace Capstone
 {
     public static class DisplayHelper
     {
-        public static void DisplayParks(IList<Park> parks)
+        public static int DisplayParks(IList<Park> parks)
         {
             int i = 1;
 
@@ -17,7 +17,7 @@ namespace Capstone
                 Console.WriteLine($"\t{i})  {park.Name} ");
                 i++;
             }
-
+            return i;
         }
 
         public static void DisplayParkInfo(Park park)
@@ -33,39 +33,56 @@ namespace Capstone
 
         }
 
-        public static void DisplayCampgrounds(IList<Campground> campgrounds)
+        public static int DisplayCampgrounds(IList<Campground> campgrounds)
         {
-            //Console.Clear();
-            //Console.WriteLine("Park Campgrounds");
-            //Console.WriteLine(park_name);
-            Console.WriteLine("\n".PadRight(9) + "Name".PadRight(20) + "Open".PadRight(10) + "Close".PadRight(10) + "Daily Fee");
 
             int i = 1;
+            Console.WriteLine("\n".PadRight(9) + "Name".PadRight(20) + "Open".PadRight(10) + "Close".PadRight(10) + "Daily Fee");
+
             foreach (Campground cg in campgrounds)
             {
                 Console.WriteLine($"#{i}".PadRight(8) + cg.Name.PadRight(20) + cg.Open_From.ToString().PadRight(10) + cg.Open_To.ToString().PadRight(10) + cg.Daily_fee.ToString("C"));
                 i++;
             }
+            return i-1;
         }
+
+        public static int DisplaySitesWithCost(IList<Campsite> campsites, decimal estimatedCost, int choicenumber)
+        {
+            Console.WriteLine("\n".PadRight(9) + "Site Number".PadRight(20) + "Max. Occupancy".PadRight(20) + "Accessible".PadRight(20) + "Max. RV Length".PadRight(20) + "Utilities");
+                        
+            foreach (Campsite cs in campsites)
+            {
+                choicenumber++;
+                Console.WriteLine($"{choicenumber})".PadRight(9) + $"{cs.Site_Number}".PadRight(20) + $"{cs.Max_Occupancy}".PadRight(20) + $"{cs.IsAccessible}".PadRight(20)+ $"{cs.Max_Rv_Length}".PadRight(20) + cs.HasUtilities);
+                
+            }
+            return choicenumber;
+        }
+
 
         public static void DisplaySites(IList<Campsite> campsites)
         {
             Console.WriteLine("\n".PadRight(9) + "Site Number".PadRight(20) + "Max. Occupancy".PadRight(20) + "Accessible".PadRight(20) + "Max. RV Length".PadRight(20) + "Utilities");
 
             
-            foreach (Campsite cs in campsites)
-            {
-                Console.WriteLine("\n".PadRight(9) + cs.Site_Number.ToString().PadRight(20) + cs.Max_Occupancy.ToString().PadRight(20) + cs.IsAccessible.ToString().PadRight(20)+ cs.Max_Rv_Length.ToString().PadRight(20) + cs.HasUtilities.ToString());
+               foreach (Campsite cs in campsites)
+               {
+                    Console.WriteLine("\n".PadRight(9) + cs.Site_Number.ToString().PadRight(20) + cs.Max_Occupancy.ToString().PadRight(20) + cs.IsAccessible.ToString().PadRight(20) + cs.Max_Rv_Length.ToString().PadRight(20) + cs.HasUtilities.ToString());
                 
-            }
+               }
         }
-
-      
 
 
         public static void DisplayReservations(IList<Reservation> reservations)
         {
+            Console.WriteLine("Site_ID".PadRight(10) + "Confirmation #".PadRight(20) + "Reservation Name".PadRight(40) + "Start date".PadRight(15) + "End date".PadRight(15) + "Made on");
 
+            foreach(Reservation res in reservations)
+            {
+                Console.WriteLine($"{res.Site_Id}".PadRight(10) + $"CGR{res.Reservation_Id}".PadRight(20) + $"{res.Name}".PadRight(40) + res.From_Date.ToShortDateString().PadRight(15) + res.To_Date.ToShortDateString().PadRight(15) + res.Create_Date.ToShortDateString());
+
+            }
 
         }
 

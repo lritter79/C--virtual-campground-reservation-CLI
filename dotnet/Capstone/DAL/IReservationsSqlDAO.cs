@@ -22,6 +22,9 @@ namespace Capstone.DAL
         int BookReservation(Reservation reservation);
 
 
+        IList<Reservation> GetReservationsNext30ByPark(int park_id);
+
+
 
 
     }
