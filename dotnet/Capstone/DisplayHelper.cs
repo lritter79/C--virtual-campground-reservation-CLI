@@ -47,7 +47,7 @@ namespace Capstone
 
         public static int DisplaySitesWithCost(IList<Campsite> campsites, decimal estimatedCost, int choicenumber)
         {
-            Console.WriteLine("\n".PadRight(9) + "Site Number".PadRight(20) + "Max. Occupancy".PadRight(20) + "Accessible".PadRight(20) + "Max. RV Length".PadRight(20) + "Utilities");
+            Console.WriteLine("\n".PadRight(10) + "Site Number".PadRight(20) + "Max. Occupancy".PadRight(20) + "Accessible".PadRight(20) + "Max. RV Length".PadRight(20) + "Utilities");
                         
             foreach (Campsite cs in campsites)
             {
@@ -61,7 +61,7 @@ namespace Capstone
 
         public static void DisplaySites(IList<Campsite> campsites)
         {
-            Console.WriteLine("\n".PadRight(9) + "Site Number".PadRight(20) + "Max. Occupancy".PadRight(20) + "Accessible".PadRight(20) + "Max. RV Length".PadRight(20) + "Utilities");
+            Console.WriteLine("\n".PadRight(15) + "Site Number".PadRight(20) + "Max. Occupancy".PadRight(20) + "Accessible".PadRight(20) + "Max. RV Length".PadRight(20) + "Utilities");
 
             foreach (Campsite cs in campsites)
             {
