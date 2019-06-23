@@ -29,8 +29,6 @@ namespace Capstone
             Console.WriteLine("Area".PadRight(20) + park.Area);
             Console.WriteLine("Annual Visitors:".PadRight(20) + park.Visitors);
             Console.WriteLine("\n" + park.Description);
-
-
         }
 
         public static int DisplayCampgrounds(IList<Campground> campgrounds)
@@ -65,18 +63,17 @@ namespace Capstone
         {
             Console.WriteLine("\n".PadRight(9) + "Site Number".PadRight(20) + "Max. Occupancy".PadRight(20) + "Accessible".PadRight(20) + "Max. RV Length".PadRight(20) + "Utilities");
 
-            
-               foreach (Campsite cs in campsites)
-               {
-                    Console.WriteLine("\n".PadRight(9) + cs.Site_Number.ToString().PadRight(20) + cs.Max_Occupancy.ToString().PadRight(20) + (cs.IsAccessible ? "yes" : "no").PadRight(20) + cs.Max_Rv_Length.ToString().PadRight(20) + (cs.HasUtilities ? "yes" : "no"));
+            foreach (Campsite cs in campsites)
+            {
+                Console.WriteLine("\n".PadRight(9) + cs.Site_Number.ToString().PadRight(20) + cs.Max_Occupancy.ToString().PadRight(20) + (cs.IsAccessible ? "yes" : "no").PadRight(20) + cs.Max_Rv_Length.ToString().PadRight(20) + (cs.HasUtilities ? "yes" : "no"));
                 
-               }
+            }
         }
 
 
         public static void DisplayReservations(IList<Reservation> reservations)
         {
-            Console.WriteLine("Site_ID".PadRight(10) + "Confirmation #".PadRight(20) + "Reservation Name".PadRight(40) + "Start date".PadRight(15) + "End date".PadRight(15) + "Made on");
+            Console.WriteLine("Site_Number".PadRight(10) + "Confirmation #".PadRight(20) + "Reservation Name".PadRight(40) + "Start date".PadRight(15) + "End date".PadRight(15) + "Made on");
 
             foreach(Reservation res in reservations)
             {
@@ -85,6 +82,5 @@ namespace Capstone
             }
             Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         }
-
     }
 }
