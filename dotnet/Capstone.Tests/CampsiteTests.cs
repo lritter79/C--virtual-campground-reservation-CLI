@@ -25,14 +25,6 @@ namespace Capstone.Tests
             Assert.AreEqual(true, campsites[0].IsAccessible);
             Assert.AreEqual(0, campsites[0].Max_Rv_Length);
             Assert.AreEqual(true, campsites[0].HasUtilities);
-
-
-
-            //cmdText = $"INSERT INTO site VALUES ({BlackLodgeCampgroundId}, 9, 100, 1, 0, 1);SELECT SCOPE_IDENTITY();";
-
-
-
         }
-
     }
 }
