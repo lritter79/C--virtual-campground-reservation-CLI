@@ -94,9 +94,8 @@ namespace Capstone.DAL
 
                     conn.Open();
 
-                    SqlCommand cmd = new SqlCommand($"SELECT * from reservation Join site on reservation.site_id = site.site_id " +
-                        $"join campground on site.campground_id = campground.campground_id " +
-                        $"where campground.park_id = @parkid and from_date >= GETDATE() and from_date <= DATEADD(day, 30, GETDATE()) order by from_date;", conn);
+                    SqlCommand cmd = new SqlCommand($"select * from reservation where site_id in(select site_id from site where site.campground_id in (select campground_id from campground where campground.park_id = @parkid))" +
+                        $" and from_date >= GETDATE() and from_date <= DATEADD(day, 30, GETDATE()) order by from_date;", conn);
                     cmd.Parameters.AddWithValue("@parkid", park_id);
 
                     SqlDataReader reader = cmd.ExecuteReader();

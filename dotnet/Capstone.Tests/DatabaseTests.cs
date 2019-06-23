@@ -75,37 +75,37 @@ namespace Capstone.Tests
             }
         }
 
-        [TestMethod]
-        public void GetData()
-        {
-            using (SqlConnection connection = new SqlConnection(ConnectionString))
-            {
-                connection.Open();
+        //[TestMethod]
+        //public void GetData()
+        //{
+        //    using (SqlConnection connection = new SqlConnection(ConnectionString))
+        //    {
+        //        connection.Open();
 
-                int ParkIdCount = -1;
-                int CampgroundIdCount = -1;
-                int SiteIdCount = -1;
-                int ReservationIdCount = -1;
+        //        int ParkIdCount = -1;
+        //        int CampgroundIdCount = -1;
+        //        int SiteIdCount = -1;
+        //        int ReservationIdCount = -1;
 
-                string cmdText = "SELECT COUNT(name) FROM park";
-                SqlCommand command = new SqlCommand(cmdText, connection);
-                ParkIdCount = Convert.ToInt32(command.ExecuteScalar());
+        //        string cmdText = "SELECT COUNT(name) FROM park";
+        //        SqlCommand command = new SqlCommand(cmdText, connection);
+        //        ParkIdCount = Convert.ToInt32(command.ExecuteScalar());
 
-                cmdText = "SELECT COUNT(name) FROM campground";
-                command = new SqlCommand(cmdText, connection);
-                CampgroundIdCount = Convert.ToInt32(command.ExecuteScalar());
+        //        cmdText = "SELECT COUNT(name) FROM campground";
+        //        command = new SqlCommand(cmdText, connection);
+        //        CampgroundIdCount = Convert.ToInt32(command.ExecuteScalar());
 
-                cmdText = "SELECT COUNT(site_number) FROM site";
-                command = new SqlCommand(cmdText, connection);
-                SiteIdCount = Convert.ToInt32(command.ExecuteScalar());
+        //        cmdText = "SELECT COUNT(site_number) FROM site";
+        //        command = new SqlCommand(cmdText, connection);
+        //        SiteIdCount = Convert.ToInt32(command.ExecuteScalar());
 
-                cmdText = "SELECT COUNT(name) FROM reservation";
-                command = new SqlCommand(cmdText, connection);
-                ReservationIdCount = Convert.ToInt32(command.ExecuteScalar());
+        //        cmdText = "SELECT COUNT(name) FROM reservation";
+        //        command = new SqlCommand(cmdText, connection);
+        //        ReservationIdCount = Convert.ToInt32(command.ExecuteScalar());
 
-                Assert.AreEqual($"{ParkIdCount}{CampgroundIdCount}{SiteIdCount}{ReservationIdCount}", "2321");
-            }
-        }
+        //        Assert.AreEqual($"{ParkIdCount}{CampgroundIdCount}{SiteIdCount}{ReservationIdCount}", "2321");
+        //    }
+        //}
 
         [TestCleanup]
        public void CleanUp()
