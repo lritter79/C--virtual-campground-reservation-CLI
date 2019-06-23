@@ -25,11 +25,6 @@ namespace Capstone.Tests
             Assert.AreEqual(01, campgrounds[0].Open_From);
             Assert.AreEqual(09, campgrounds[0].Open_To);
             Assert.AreEqual(420.00M, campgrounds[0].Daily_fee);
-
-
-            //cmdText = $"INSERT INTO campground VALUES ({TwinPeaksParkId}, 'Black Lodge', 01, 09, 420.00);SELECT SCOPE_IDENTITY();";
-
-
         }
 
     }
