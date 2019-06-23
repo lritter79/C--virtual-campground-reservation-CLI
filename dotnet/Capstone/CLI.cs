@@ -85,7 +85,7 @@ namespace Capstone
                     DateTime[] dateRange = CLIHelper.GetDateRange("Please enter your planned arrival date: ", "Please enter your planned departure date : ");
                     DisplayOpenSitesEntirePark(Parks[park_id].Park_id, dateRange[0], dateRange[1]);
                     IList<Campsite> sitesByPark = campsiteSqlDAO.GetAvailabeSitesByParkWithoutDate(Parks[park_id].Park_id);
-                    DisplayHelper.DisplaySites(sitesByPark);
+                    DisplayHelper.DisplaySitesWithCost(sitesByPark);
                 }
                 else
                 {

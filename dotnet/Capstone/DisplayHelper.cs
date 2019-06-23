@@ -57,6 +57,7 @@ namespace Capstone
                 Console.WriteLine("\n".PadRight(9) + cs.Site_Number.ToString().PadRight(20) + cs.Max_Occupancy.ToString().PadRight(20) + cs.IsAccessible.ToString().PadRight(20)+ cs.Max_Rv_Length.ToString().PadRight(20) + cs.HasUtilities.ToString());
                 
             }
+            return 0;
         }
 
       
