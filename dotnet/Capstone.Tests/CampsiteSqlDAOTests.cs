@@ -59,7 +59,7 @@ namespace Capstone.Tests
             //Act
             IList<Campsite> test = dao.GetAvailabeSitesByPark(TwinPeaksParkId, fromDate, toDate);
             //Asserts
-            Assert.IsTrue(test.Count == 2);
+            Assert.IsTrue(test.Count == 1);
         }
     }
 }

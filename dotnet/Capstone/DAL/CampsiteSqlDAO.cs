@@ -157,7 +157,7 @@ namespace Capstone.DAL
                         "where campground.park_id = @park and ((from_date >= @start and from_date <= @end) or " +
                         "(to_date <= @end and to_date >= @start ) or (from_date < @start and to_date > @end))) " +
                         "and ((MONTH(@start) >= campground.open_from_mm) and " +
-                        "(MONTH(@end) <= campground.open_to_mm)))" +
+                        "(MONTH(@end) <= campground.open_to_mm))" +
                         "order by site_number;", conn);
 
                     cmd.Parameters.AddWithValue("@park", park_id);
@@ -196,7 +196,7 @@ namespace Capstone.DAL
 
                     //selects from the DB any campsites in the selected parl
                     SqlCommand cmd = new SqlCommand("SELECT * from site where campground_id in" + " (select campground_id from campground where park_id = @park)" +
-" order by campground_id, site_number ;; ", conn);
+                                                    " order by campground_id, site_number ;; ", conn);
 
 
                     cmd.Parameters.AddWithValue("@park", park_id);
