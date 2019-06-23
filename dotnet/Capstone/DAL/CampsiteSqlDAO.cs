@@ -199,7 +199,7 @@ namespace Capstone.DAL
                     //that do not have current reservations during that date range
                     //and the park is open during that month
                     SqlCommand cmd = new SqlCommand("SELECT * from site where campground_id in" + " (select campground_id from campground where park_id = @park)" +
-" order by site_number; ", conn);
+" order by campground_id, site_number ;; ", conn);
 
                     cmd.Parameters.AddWithValue("@park", park_id);
                     

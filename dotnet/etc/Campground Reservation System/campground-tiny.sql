@@ -220,3 +220,7 @@ ALTER TABLE site ADD FOREIGN KEY (campground_id) REFERENCES campground(campgroun
 ALTER TABLE reservation ADD FOREIGN KEY (site_id) REFERENCES site(site_id);
 
 commit transaction;
+
+SELECT * from site where campground_id in (select campground_id from campground where park_id = '1')
+group by site.campground_id 
+order by site_number ;
