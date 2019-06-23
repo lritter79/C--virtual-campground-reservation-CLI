@@ -22,10 +22,16 @@ namespace Capstone.DAL
 
         IList<Campsite> GetAvailableSitesFilteredByDate(int site_id, DateTime start, DateTime end);
 
+        /// <summary>
+        /// returns campsites within a park
+        /// </summary>
+        /// <param name="park_id"></param>
+        /// <returns></returns>
+        IList<Campsite> GetAvailabeSitesByParkWithoutDate(int park_id);
 
         IList<Campsite> GetAvailabeSitesByPark(int park_id, DateTime start, DateTime end);
 
-        //IList<Campsite> GetAvailabeSitesByParkWithoutDate(int park_id);
+        
 
 
 

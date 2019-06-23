@@ -37,11 +37,11 @@ namespace Capstone
         {
 
             int i = 1;
-            Console.WriteLine("\n".PadRight(9) + "Name".PadRight(20) + "Open".PadRight(10) + "Close".PadRight(10) + "Daily Fee");
+            Console.WriteLine("\n".PadRight(9) + "Name".PadRight(25) + "Open".PadRight(10) + "Close".PadRight(10) + "Daily Fee");
 
             foreach (Campground cg in campgrounds)
             {
-                Console.WriteLine($"#{i}".PadRight(8) + cg.Name.PadRight(20) + cg.Open_From.ToString().PadRight(10) + cg.Open_To.ToString().PadRight(10) + cg.Daily_fee.ToString("C"));
+                Console.WriteLine($"#{i}".PadRight(8) + cg.Name.PadRight(25) + cg.Open_From.ToString().PadRight(10) + cg.Open_To.ToString().PadRight(10) + cg.Daily_fee.ToString("C"));
                 i++;
             }
             return i-1;
