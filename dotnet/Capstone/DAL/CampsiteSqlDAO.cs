@@ -90,7 +90,7 @@ namespace Capstone.DAL
             return campsites;
         }
 
-        public IList<Campsite> GetSiteAndReservationDate(int campground_id, DateTime start, DateTime end)
+        public IList<Campsite> GetAvailableSitesFilteredByDate(int campground_id, DateTime start, DateTime end)
         {
             List<Campsite> sites = new List<Campsite>();
 
@@ -184,45 +184,46 @@ namespace Capstone.DAL
             return sites;
         }
 
-        public IList<Campsite> GetAvailabeSitesByParkWithoutDate(int park_id)
-        {
-            List<Campsite> sites = new List<Campsite>();
+    //    public IList<Campsite> GetAvailabeSitesByParkWithoutDate(int park_id)
+    //    {
+    //        List<Campsite> sites = new List<Campsite>();
 
-            try
-            {
-                using (SqlConnection conn = new SqlConnection(ConnectionString))
-                {
-                    conn.Open();
+    //        try
+    //        {
+    //            using (SqlConnection conn = new SqlConnection(ConnectionString))
+    //            {
+    //                conn.Open();
 
 
-                    //selects from the DB any campsites in the selected campground
-                    //that do not have current reservations during that date range
-                    //and the park is open during that month
-                    SqlCommand cmd = new SqlCommand("SELECT * from site where campground_id in" + " (select campground_id from campground where park_id = @park)" +
-" order by site_number; ", conn);
+    //                //selects from the DB any campsites in the selected campground
+    //                //that do not have current reservations during that date range
+    //                //and the park is open during that month
+    //                SqlCommand cmd = new SqlCommand("SELECT * from site where campground_id in" + 
+    //                    " (select campground_id from campground where park_id = @park)" +
+    //                    " order by site_number; ", conn);
 
-                    cmd.Parameters.AddWithValue("@park", park_id);
+    //                cmd.Parameters.AddWithValue("@park", park_id);
                     
 
-                    SqlDataReader reader = cmd.ExecuteReader();
+    //                SqlDataReader reader = cmd.ExecuteReader();
 
-                    while (reader.Read())
-                    {
-                        sites.Add(new Campsite(reader));
-                    }
-                }
+    //                while (reader.Read())
+    //                {
+    //                    sites.Add(new Campsite(reader));
+    //                }
+    //            }
 
 
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error: " + ex.Message);
-                throw;
+    //        }
+    //        catch (Exception ex)
+    //        {
+    //            Console.WriteLine("Error: " + ex.Message);
+    //            throw;
                 
-            }
+    //        }
 
-            return sites;
-        }
+    //        return sites;
+    //    }
 
     }
 }

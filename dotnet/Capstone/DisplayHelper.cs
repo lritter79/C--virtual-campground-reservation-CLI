@@ -47,20 +47,39 @@ namespace Capstone
             return i-1;
         }
 
-        public static int DisplaySitesWithCost(IList<Campsite> campsites, decimal estimatedCost)
+        public static int DisplaySitesWithCost(IList<Campsite> campsites, decimal estimatedCost, int choicenumber)
+        {
+            Console.WriteLine("\n".PadRight(9) + "Site Number".PadRight(20) + "Max. Occupancy".PadRight(20) + "Accessible".PadRight(20) + "Max. RV Length".PadRight(20) + "Utilities");
+                        
+            foreach (Campsite cs in campsites)
+            {
+                choicenumber++;
+                Console.WriteLine($"{choicenumber})".PadRight(9) + $"{cs.Site_Number}".PadRight(20) + $"{cs.Max_Occupancy}".PadRight(20) + $"{cs.IsAccessible}".PadRight(20)+ $"{cs.Max_Rv_Length}".PadRight(20) + $"{cs.HasUtilities}");
+                
+            }
+            return choicenumber;
+        }
+
+
+        public static int DisplayAvailableSitesForEntirePark(int park_id)
+        {
+
+
+            return 0;
+        }
+
+
+        public static void DisplaySites(IList<Campsite> campsites)
         {
             Console.WriteLine("\n".PadRight(9) + "Site Number".PadRight(20) + "Max. Occupancy".PadRight(20) + "Accessible".PadRight(20) + "Max. RV Length".PadRight(20) + "Utilities");
 
             
-            foreach (Campsite cs in campsites)
-            {
-                Console.WriteLine("\n".PadRight(9) + cs.Site_Number.ToString().PadRight(20) + cs.Max_Occupancy.ToString().PadRight(20) + cs.IsAccessible.ToString().PadRight(20)+ cs.Max_Rv_Length.ToString().PadRight(20) + cs.HasUtilities.ToString());
+               foreach (Campsite cs in campsites)
+               {
+                    Console.WriteLine("\n".PadRight(9) + cs.Site_Number.ToString().PadRight(20) + cs.Max_Occupancy.ToString().PadRight(20) + cs.IsAccessible.ToString().PadRight(20) + cs.Max_Rv_Length.ToString().PadRight(20) + cs.HasUtilities.ToString());
                 
-            }
-            return 0;
+               }
         }
-
-      
 
 
         public static void DisplayReservations(IList<Reservation> reservations)
