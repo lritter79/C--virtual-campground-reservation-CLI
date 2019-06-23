@@ -190,9 +190,10 @@ namespace Capstone
             Reservation newRes = new Reservation();
             int confirmation = 0;
 
-            newRes.Site_Id = CLIHelper.GetInteger("\nPlease Enter the number of the site you would like to reserve (Enter 0 to Cancel): ");
-            if (newRes.Site_Id != 0)
+            int choice = CLIHelper.GetInteger("\nPlease Enter the number of the site you would like to reserve (Enter 0 to Cancel): ");
+            if (choice != 0)
             {
+                newRes.Site_Id = sites[choice-1].Site_Id;
                 newRes.Name = CLIHelper.GetString("\nPlease enter the name to enter the reservation under: ");
                 newRes.From_Date = start;
                 newRes.To_Date = end;
