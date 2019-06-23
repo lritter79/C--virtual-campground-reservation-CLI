@@ -91,7 +91,7 @@ namespace Capstone
                 }
                 else if (infoChoice == 3)
                 {
-                    IList < Reservation > reservations = reservationSqlDAO.GetReservationsNext30ByPark(park_id+1);
+                    IList < Reservation > reservations = reservationSqlDAO.GetReservationsNext30ByPark(Parks[park_id].Park_id);
                     DisplayHelper.DisplayReservations(reservations);
                 }
                 else

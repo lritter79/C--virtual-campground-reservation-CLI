@@ -54,8 +54,8 @@ namespace Capstone.Tests
         {
             //Arrange
             CampsiteSqlDAO dao = new CampsiteSqlDAO(ConnectionString);
-            DateTime fromDate = new DateTime(1991, 2, 27, 12, 0, 0);
-            DateTime toDate = new DateTime(1991, 4, 24, 12, 0, 0);
+            DateTime fromDate = new DateTime(2001, 2, 27, 12, 0, 0);
+            DateTime toDate = new DateTime(2001, 4, 24, 12, 0, 0);
             //Act
             IList<Campsite> test = dao.GetAvailabeSitesByPark(TwinPeaksParkId, fromDate, toDate);
             //Asserts
