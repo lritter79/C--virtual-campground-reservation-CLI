@@ -90,7 +90,7 @@ namespace Capstone.DAL
             return campsites;
         }
 
-        public IList<Campsite> GetAvailableSitesFilteredByDate(int campground_id, DateTime start, DateTime end)
+        public IList<Campsite> GetAvailableSitesFilteredByDate(int campground_id, DateTime start, DateTime end, string addedParameters)
         {
             List<Campsite> sites = new List<Campsite>();
 
@@ -106,7 +106,7 @@ namespace Capstone.DAL
                     //and the park is open during that month
                     SqlCommand cmd = new SqlCommand("SELECT TOP 5 * from site " +
                         "join campground on site.campground_id = campground.campground_id " +
-                        "where campground.campground_id = @siteid and site_id not in (select site_id from reservation " +
+                        $"where campground.campground_id = @siteid {addedParameters} and site_id not in (select site_id from reservation " +
                         "where campground.campground_id = @siteid and ((from_date >= @start and from_date <= @end) or " +
                         "(to_date <= @end and to_date >= @start ) or (from_date < @start and to_date  > @end)) " +
                         "and ((MONTH(@start) >= campground.open_from_mm) and " +
@@ -221,6 +221,53 @@ namespace Capstone.DAL
 
             return sites;
         }
+
+        //public IList<Campsite> AdvancedSearchGetSitesFiltered(string search)
+        //{
+        //    List<Campsite> sites = new List<Campsite>();
+
+        //    try
+        //    {
+        //        using (SqlConnection conn = new SqlConnection(ConnectionString))
+        //        {
+        //            conn.Open();
+
+
+        //            //selects from the DB any campsites in the selected campground
+        //            //that do not have current reservations during that date range
+        //            //and the park is open during that month
+        //            SqlCommand cmd = new SqlCommand("SELECT TOP 5 * from site " +
+        //                "join campground on site.campground_id = campground.campground_id " +
+        //                "where campground.campground_id = @siteid and site_id not in (select site_id from reservation " +
+        //                "where campground.campground_id = @siteid and ((from_date >= @start and from_date <= @end) or " +
+        //                "(to_date <= @end and to_date >= @start ) or (from_date < @start and to_date  > @end)) " +
+        //                "and ((MONTH(@start) >= campground.open_from_mm) and " +
+        //                "(MONTH(@end) <= campground.open_to_mm)))" +
+        //                "order by site_number;", conn);
+
+        //            cmd.Parameters.AddWithValue("@siteid", campground_id);
+        //            cmd.Parameters.AddWithValue("@start", start);
+        //            cmd.Parameters.AddWithValue("@end", end);
+
+        //            SqlDataReader reader = cmd.ExecuteReader();
+
+        //            while (reader.Read())
+        //            {
+        //                sites.Add(new Campsite(reader));
+        //            }
+        //        }
+
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine("Error: " + ex.Message);
+        //        throw;
+        //        //Add way to reset after getting thrown an invalid date
+        //    }
+
+        //    return sites;
+        //}
 
     }
 }

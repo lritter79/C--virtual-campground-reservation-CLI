@@ -44,7 +44,7 @@ namespace Capstone.Tests
             DateTime fromDate = new DateTime(1991, 2, 26, 12, 0, 0);
             DateTime toDate = new DateTime(1991, 4, 26, 12, 0, 0);
             //Act
-            IList<Campsite> test = dao.GetAvailableSitesFilteredByDate(WhiteLodgeCampgroundId,fromDate, toDate);
+            IList<Campsite> test = dao.GetAvailableSitesFilteredByDate(WhiteLodgeCampgroundId,fromDate, toDate, "");
             //Asserts
             Assert.IsTrue(test.Count == 1);
         }
