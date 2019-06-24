@@ -55,7 +55,7 @@ namespace Capstone
             }         
         }
 
-
+        //header for the first menu
         public void PrintHeader()
         {
             Console.Clear();
@@ -64,6 +64,7 @@ namespace Capstone
             
         }
 
+        //Displays the information for the selected park and menu options to continue
         public void ParkInfoMenu(int park_id)
         {
             Console.Clear();
@@ -87,16 +88,12 @@ namespace Capstone
                     DateTime[] dateRange = CLIHelper.GetDateRange("Please enter your planned arrival date: ", "Please enter your planned departure date : ");
 
                     DisplayOpenSitesEntirePark(Parks[park_id].Park_id, dateRange[0], dateRange[1]);
-                    //IList<Campsite> sitesByPark = campsiteSqlDAO.GetAvailabeSitesByParkWithoutDate(Parks[park_id].Park_id);
-                    //DisplayHelper.DisplaySites(sitesByPark);
                 }
                 else if (infoChoice == 3)
                 {
                     DateTime[] dateRange = CLIHelper.GetDateRange("Please enter your planned arrival date: ", "Please enter your planned departure date : ");
 
                     AdvancedSearchForSiteByCampground(Parks[park_id].Park_id, dateRange[0], dateRange[1]);
-
-
                 }
                 else if (infoChoice == 4)
                 {
@@ -111,7 +108,7 @@ namespace Capstone
             }
         }
 
-
+        //Displays the campgrounds for a specific park and options to continue
         public void DisplayCampgrounds(int park_id, string park_name)
         {
             IList<Campground> campgrounds = campgroundSqlDAO.GetCampgroundsByPark(park_id);
@@ -142,6 +139,7 @@ namespace Capstone
             }
         }
 
+        //Displays the sites available during the requested date at the specific campground and offers ability to make reservation
         public void DisplayOpenSites(int camp_id, DateTime start, DateTime end, decimal dailyCost)
         {
             decimal estimatedCost = dailyCost * Math.Ceiling( (decimal)(end - start).TotalDays);
@@ -174,6 +172,8 @@ namespace Capstone
             }
         }
 
+        //Displays top 5 available campsites for each campground in the park during the requested date
+        //and offers ability to make reservation
         public int DisplayOpenSitesEntirePark(int park_id, DateTime start, DateTime end)
         {
             int i = 0;
@@ -195,6 +195,7 @@ namespace Capstone
             return i;
         }
 
+        //takes in the customer info and books the reservation in the database
         public void MakeReservation (IList<Campsite> sites, DateTime start, DateTime end)
         {
             Reservation newRes = new Reservation();
@@ -212,10 +213,16 @@ namespace Capstone
                 confirmation = reservationSqlDAO.BookReservation(newRes);
                 Console.WriteLine("\n\nYour reservation has been completed, your confirmation # is CGR" + confirmation);
                 Console.WriteLine("\nPlease make sure to save this for your records.  Press enter to return to the previous Menu.");
-                Console.ReadLine();
+                string answer = CLIHelper.GetString("Would you like to get directions to your gampground? (Y)es or (N)o : ");
+                if (answer.ToLower().StartsWith("y"))
+                {
+                    DirectionsDisplay.OpenBrowser(sites[choice - 1].Campground_Id - 1);
+
+                }
             }
         }
 
+        //gives the options for advanced filtering of campsite results, and offers reservation ability
         public void AdvancedSearchForSiteByCampground(int park_id, DateTime start, DateTime end)
         {
             string addToQuery = "";

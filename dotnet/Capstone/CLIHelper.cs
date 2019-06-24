@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Capstone
 {
+    //helper for getting input from the user, takes in a string of what to display and returns therequested data type
     public static class CLIHelper
     {
         public static DateTime GetDateTime(string message)
@@ -52,6 +53,7 @@ namespace Capstone
             return intValue;
 
         }
+
         public static string GetString(string message)
         {
             string userInput = String.Empty;
@@ -139,6 +141,7 @@ namespace Capstone
             return boolValue;
         }
 
+        //returns and array of two dates with the second being after the first
         public static DateTime[] GetDateRange(string firstMessage, string secondMessage)
         {
             string input = "";

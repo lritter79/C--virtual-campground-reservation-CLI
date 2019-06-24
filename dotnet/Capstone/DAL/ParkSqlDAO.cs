@@ -38,8 +38,6 @@ namespace Capstone.DAL
                     {
                         Parks.Add(new Park(reader));
                     }
-
-
                 }
             }
             catch(Exception ex)
@@ -47,7 +45,6 @@ namespace Capstone.DAL
                 Console.WriteLine("Error : " + ex.Message);
                 throw;
             }
-
             return Parks;
         }
     }

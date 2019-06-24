@@ -9,6 +9,8 @@ namespace Capstone
     {
         static void Main(string[] args)
         {
+            
+
             // Get the connection string from the appsettings.json file
             IConfigurationBuilder builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())

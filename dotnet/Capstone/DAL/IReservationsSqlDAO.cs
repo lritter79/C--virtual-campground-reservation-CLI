@@ -12,20 +12,17 @@ namespace Capstone.DAL
         /// </summary>
         IList<Reservation> GetReservations();
 
-
-        //IList<Reservation> GetReservationsByName(string reservationName);
-
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
         int BookReservation(Reservation reservation);
 
-
+        /// <summary>
+        /// Returns a list of the reservations in a specific park for the next 30 days
+        /// </summary>
+        /// <param name="park_id"></param>
+        /// <returns></returns>
         IList<Reservation> GetReservationsNext30ByPark(int park_id);
-
-
-
-
     }
 }
