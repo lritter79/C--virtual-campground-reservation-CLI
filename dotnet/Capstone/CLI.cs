@@ -75,7 +75,8 @@ namespace Capstone
 
                 DisplayHelper.DisplayParkInfo(Parks[park_id]);
                 int infoChoice = CLIHelper.GetInteger("\nSelect an option:\n\t1) View Campgrounds\n\t2) Show all available Campsites for this Park\n\t" +
-                    "3) Diplay Reservations in this park for the next 30 days \n\t4) Return to Previous Menu\n\nEnter Choice: ");
+                    "3) Advanced Search of All Campgrounds in This Park \n\t4) Diplay Reservations in this park for the next 30 days " +
+                    "\n\t5) Return to Previous Menu\n\nEnter Choice: ");
 
                 if (infoChoice == 1)
                 {
@@ -91,9 +92,18 @@ namespace Capstone
                 }
                 else if (infoChoice == 3)
                 {
+                    DateTime[] dateRange = CLIHelper.GetDateRange("Please enter your planned arrival date: ", "Please enter your planned departure date : ");
+
+                    AdvancedSearchForSiteByCampground(Parks[park_id].Park_id, dateRange[0], dateRange[1]);
+
+
+                }
+                else if (infoChoice == 4)
+                {
                     IList < Reservation > reservations = reservationSqlDAO.GetReservationsNext30ByPark(Parks[park_id].Park_id);
                     DisplayHelper.DisplayReservations(reservations);
                 }
+                
                 else
                 {
                     done = true;
@@ -136,7 +146,7 @@ namespace Capstone
         {
             decimal estimatedCost = dailyCost * Math.Ceiling( (decimal)(end - start).TotalDays);
                         
-            IList<Campsite> sites = campsiteSqlDAO.GetAvailableSitesFilteredByDate(camp_id, start, end);
+            IList<Campsite> sites = campsiteSqlDAO.GetAvailableSitesFilteredByDate(camp_id, start, end, "");
 
             bool done = false;
 
@@ -174,7 +184,7 @@ namespace Capstone
             {
                 Console.WriteLine($"\nAvailable sites in {cg.Name}:");
 
-                IList<Campsite> sites = campsiteSqlDAO.GetAvailableSitesFilteredByDate(cg.Campground_Id, start, end);
+                IList<Campsite> sites = campsiteSqlDAO.GetAvailableSitesFilteredByDate(cg.Campground_Id, start, end, "");
                 i = DisplayHelper.DisplaySitesWithCost(sites, cg.Daily_fee, i);
                 allSites.AddRange(sites);
                 
@@ -204,6 +214,51 @@ namespace Capstone
                 Console.WriteLine("\nPlease make sure to save this for your records.  Press enter to return to the previous Menu.");
                 Console.ReadLine();
             }
+        }
+
+        public void AdvancedSearchForSiteByCampground(int park_id, DateTime start, DateTime end)
+        {
+            string addToQuery = "";
+            string answer = "";
+            int size = 0;
+
+            answer = CLIHelper.GetString("Would you like to search for Handicapped Accesibility? (Y)es or (N)o? ");
+            if (answer.ToLower().StartsWith("y"))
+            {
+                addToQuery += " and site.accessible = 'True' ";
+            }
+
+            answer = CLIHelper.GetString("Would you like your campsite to have Utilities available?  (Y)es or (N)o?");
+            if (answer.ToLower().StartsWith("y"))
+            {
+                addToQuery += " and site.utilities = 'True' ";
+            }
+
+            size = CLIHelper.GetInteger("Please enter the minimum size required for your RV (Enter 0 if no RV): ");
+            if(size != 0)
+            {
+                addToQuery += $" and max_rv_length >= {size} ";
+            }
+
+            size = CLIHelper.GetInteger("Please enter the planned number of occupents for your stay: ");
+            addToQuery += $" and max_occupancy >= {size} ";
+
+            int i = 0;
+            IList<Campground> campgrounds = campgroundSqlDAO.GetCampgroundsByPark(park_id);
+            List<Campsite> allSites = new List<Campsite>();
+
+            foreach (Campground cg in campgrounds)
+            {
+                Console.WriteLine($"\nAvailable sites in {cg.Name}:");
+
+                IList<Campsite> sites = campsiteSqlDAO.GetAvailableSitesFilteredByDate(cg.Campground_Id, start, end, addToQuery);
+                i = DisplayHelper.DisplaySitesWithCost(sites, cg.Daily_fee, i);
+                allSites.AddRange(sites);
+
+            }
+
+            MakeReservation(allSites, start, end);
+
         }
 
     }

@@ -20,7 +20,7 @@ namespace Capstone.DAL
         /// <returns></returns>
         IList<Campsite> GetCampSitesByCampgrounds(int campground_id);
 
-        IList<Campsite> GetAvailableSitesFilteredByDate(int site_id, DateTime start, DateTime end);
+        IList<Campsite> GetAvailableSitesFilteredByDate(int site_id, DateTime start, DateTime end, string addedParameters);
 
         /// <summary>
         /// returns campsites within a park
