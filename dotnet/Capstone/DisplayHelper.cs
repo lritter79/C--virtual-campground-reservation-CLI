@@ -73,11 +73,11 @@ namespace Capstone
 
         public static void DisplayReservations(IList<Reservation> reservations)
         {
-            Console.WriteLine("Site_Number".PadRight(10) + "Confirmation #".PadRight(20) + "Reservation Name".PadRight(40) + "Start date".PadRight(15) + "End date".PadRight(15) + "Made on");
+            Console.WriteLine("Site_Number".PadRight(10) + "Confirmation #".PadRight(20) +  "Start date".PadRight(15) + "End date".PadRight(15) + "Made on");
 
             foreach(Reservation res in reservations)
             {
-                Console.WriteLine($"{res.Site_Id}".PadRight(10) + $"CGR{res.Reservation_Id}".PadRight(20) + $"{res.Name}".PadRight(40) + res.From_Date.ToShortDateString().PadRight(15) + res.To_Date.ToShortDateString().PadRight(15) + res.Create_Date.ToShortDateString());
+                Console.WriteLine($"{res.Site_Id}".PadRight(10) + $"CGR{res.Reservation_Id}".PadRight(20) +  res.From_Date.ToShortDateString().PadRight(15) + res.To_Date.ToShortDateString().PadRight(15) + res.Create_Date.ToShortDateString());
                
             }
             Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
