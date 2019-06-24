@@ -90,6 +90,15 @@ namespace Capstone.DAL
             return campsites;
         }
 
+        /// <summary>
+        /// Gets a list of available campsites, filering by requested date, if the park is open,
+        /// and takes in a string of added parameters for an advanced search if requested
+        /// </summary>
+        /// <param name="campground_id"></param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <param name="addedParameters"></param>
+        /// <returns></returns>
         public IList<Campsite> GetAvailableSitesFilteredByDate(int campground_id, DateTime start, DateTime end, string addedParameters)
         {
             List<Campsite> sites = new List<Campsite>();
@@ -137,6 +146,13 @@ namespace Capstone.DAL
             return sites;
         }
 
+        /// <summary>
+        /// returns a list of all campgrounds in a park filtered by requested dates
+        /// </summary>
+        /// <param name="park_id"></param>
+        /// <param name="start"></param>
+        /// <param name="end"></param>
+        /// <returns></returns>
         public IList<Campsite> GetAvailabeSitesByPark(int park_id, DateTime start, DateTime end)
         {
             List<Campsite> sites = new List<Campsite>();
@@ -184,6 +200,11 @@ namespace Capstone.DAL
             return sites;
         }
 
+        /// <summary>
+        /// returns a list of all campsites in a given park
+        /// </summary>
+        /// <param name="park_id"></param>
+        /// <returns></returns>
         public IList<Campsite> GetAvailabeSitesByParkWithoutDate(int park_id)
         {
             List<Campsite> sites = new List<Campsite>();
@@ -209,19 +230,13 @@ namespace Capstone.DAL
                         sites.Add(new Campsite(reader));
                     }
                 }
-
-
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error: " + ex.Message);
                 throw;
-
             }
-
             return sites;
         }
-
-
     }
 }

@@ -10,7 +10,7 @@ namespace Capstone.DAL
         //returns a list of the Campgrounds from the DB
         IList<Campground> GetCampgrounds();
 
-
+        //returns a list of campgrounds in a given park
         IList<Campground> GetCampgroundsByPark(int park_id);
     }
 }

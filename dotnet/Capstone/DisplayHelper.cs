@@ -6,6 +6,7 @@ using Capstone.Models;
 
 namespace Capstone
 {
+    //helper functions to display data to the console
     public static class DisplayHelper
     {
         public static int DisplayParks(IList<Park> parks)

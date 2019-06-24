@@ -14,11 +14,14 @@ namespace Capstone.DAL
 
         public ReservationSqlDAO(string connectionString)
         {
-
             ConnectionString = connectionString;
-
         }
 
+        /// <summary>
+        /// books a reservation into the database, returns the confirmation number
+        /// </summary>
+        /// <param name="reservation"></param>
+        /// <returns></returns>
         public int BookReservation(Reservation reservation)
         {
             int confirmation = 0;
@@ -45,13 +48,13 @@ namespace Capstone.DAL
                 Console.WriteLine("Error: " + ex.Message);
                 throw;
             }
-
-            
-
-
             return confirmation;
         }
 
+        /// <summary>
+        /// gets a list of all reservations
+        /// </summary>
+        /// <returns></returns>
         public IList<Reservation> GetReservations()
         {
             List<Reservation> reservations = new List<Reservation>();
@@ -71,18 +74,20 @@ namespace Capstone.DAL
                         reservations.Add(new Reservation(reader));
                     }
                 }
-
-
             }
             catch(Exception ex)
             {
                 Console.WriteLine("Error: " + ex.Message);
                 throw;
             }
-
             return reservations;
         }
 
+        /// <summary>
+        /// gets a list of all reservations for a specific park in the next 30 days
+        /// </summary>
+        /// <param name="park_id"></param>
+        /// <returns></returns>
         public IList<Reservation> GetReservationsNext30ByPark(int park_id)
         {
             List<Reservation> reservations = new List<Reservation>();
@@ -105,15 +110,12 @@ namespace Capstone.DAL
                         reservations.Add(new Reservation(reader));
                     }
                 }
-
-
             }
             catch (Exception ex)
             {
                 Console.WriteLine("Error: " + ex.Message);
                 throw;
             }
-
             return reservations;
         }
     }

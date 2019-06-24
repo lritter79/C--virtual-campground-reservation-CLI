@@ -9,9 +9,5 @@ namespace Capstone.DAL
     {
         //get a list of Parks from the DB 
         IList<Park> GetParks();
-
-
-
-        
     }
 }
