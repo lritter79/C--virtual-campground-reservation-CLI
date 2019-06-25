@@ -207,7 +207,7 @@ namespace Capstone
 
             while (!done)
             {
-                choice = CLIHelper.GetInteger("\nPlease Enter the number of the site you would like to reserve (Enter 0 to Cancel): ");
+                choice = CLIHelper.GetInteger("\nPlease Enter the List number of the site you would like to reserve (Enter 0 to Cancel): ");
 
                 if (choice > sites.Count)
                 {
