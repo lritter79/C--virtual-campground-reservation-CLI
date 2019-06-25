@@ -50,12 +50,12 @@ namespace Capstone
 
         public static int DisplaySitesWithCost(IList<Campsite> campsites, decimal estimatedCost, int choicenumber)
         {
-            Console.WriteLine("\n".PadRight(10) + "Site Number".PadRight(20) + "Max. Occupancy".PadRight(20) + "Accessible".PadRight(20) + "Max. RV Length".PadRight(20) + "Utilities");
+            Console.WriteLine("\n".PadRight(10) + "Site Number".PadRight(20) + "Max. Occupancy".PadRight(20) + "Accessible".PadRight(20) + "Max. RV Length".PadRight(20) + "Utilities".PadRight(15) + "Estimated Cost");
                         
             foreach (Campsite cs in campsites)
             {
                 choicenumber++;
-                Console.WriteLine($"{choicenumber})".PadRight(9) + $"{cs.Site_Number}".PadRight(20) + $"{cs.Max_Occupancy}".PadRight(20) + (cs.IsAccessible ? "yes" : "no").PadRight(20)+ $"{cs.Max_Rv_Length}".PadRight(20) + (cs.HasUtilities ? "yes" : "no"));
+                Console.WriteLine($"{choicenumber})".PadRight(9) + $"{cs.Site_Number}".PadRight(20) + $"{cs.Max_Occupancy}".PadRight(20) + (cs.IsAccessible ? "yes" : "no").PadRight(20)+ $"{cs.Max_Rv_Length}".PadRight(20) + (cs.HasUtilities ? "yes" : "no").PadRight(15) + estimatedCost.ToString("C"));
                 
             }
             return choicenumber;

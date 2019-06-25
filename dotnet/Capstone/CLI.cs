@@ -213,7 +213,7 @@ namespace Capstone
                 confirmation = reservationSqlDAO.BookReservation(newRes);
                 Console.WriteLine("\n\nYour reservation has been completed, your confirmation # is CGR" + confirmation);
                 Console.WriteLine("\nPlease make sure to save this for your records.  Press enter to return to the previous Menu.");
-                string answer = CLIHelper.GetString("Would you like to get directions to your gampground? (Y)es or (N)o : ");
+                string answer = CLIHelper.GetString("Would you like to get directions to your campground? (Y)es or (N)o : ");
                 if (answer.ToLower().StartsWith("y"))
                 {
                     DirectionsDisplay.OpenBrowser(sites[choice - 1].Campground_Id - 1);
