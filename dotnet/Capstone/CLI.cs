@@ -201,28 +201,42 @@ namespace Capstone
 
             Reservation newRes = new Reservation();
             int confirmation = 0;
+            bool done = false;
 
-            int choice = CLIHelper.GetInteger("\nPlease Enter the number of the site you would like to reserve (Enter 0 to Cancel): ");
-            if (choice != 0)
+            int choice = 0;
+
+            while (!done)
             {
-                newRes.Site_Id = sites[choice-1].Site_Id;
-                newRes.Name = CLIHelper.GetString("\nPlease enter the name to enter the reservation under: ");
-                newRes.From_Date = start;
-                newRes.To_Date = end;
-                newRes.Create_Date = DateTime.Now;
+                choice = CLIHelper.GetInteger("\nPlease Enter the number of the site you would like to reserve (Enter 0 to Cancel): ");
 
-                confirmation = reservationSqlDAO.BookReservation(newRes);
-                Console.WriteLine("\n\nYour reservation has been completed, your confirmation # is CGR" + confirmation);
-                Console.WriteLine("\nPlease make sure to save this for your records.  Press enter to return to the previous Menu.");
-<<<<<<< HEAD
-                string answer = CLIHelper.GetYesOrNo("Would you like to get directions to your gampground? (Y)es or (N)o : ");
-=======
-                string answer = CLIHelper.GetString("Would you like to get directions to your campground? (Y)es or (N)o : ");
->>>>>>> 52995d56554e0dfb24637b91978f84171b1f9ec9
-                if (answer.ToLower().StartsWith("y"))
+                if (choice > sites.Count)
                 {
-                    DirectionsDisplay.OpenBrowser(sites[choice - 1].Campground_Id - 1);
+                    Console.WriteLine("Invalid choice, please try again");
+                }
 
+                else if (choice == 0)
+                {
+                    done = true;
+                }
+                else
+                {
+                    newRes.Site_Id = sites[choice - 1].Site_Id;
+                    newRes.Name = CLIHelper.GetString("\nPlease enter the name to enter the reservation under: ");
+                    newRes.From_Date = start;
+                    newRes.To_Date = end;
+                    newRes.Create_Date = DateTime.Now;
+
+                    confirmation = reservationSqlDAO.BookReservation(newRes);
+                    Console.WriteLine("\n\nYour reservation has been completed, your confirmation # is CGR" + confirmation);
+                    Console.WriteLine("\nPlease make sure to save this for your records.  Press enter to return to the previous Menu.");
+
+                    string answer = CLIHelper.GetYesOrNo("Would you like to get directions to your gampground? (Y)es or (N)o : ");
+                    if (answer.ToLower().StartsWith("y"))
+                    {
+                        DirectionsDisplay.OpenBrowser(sites[choice - 1].Campground_Id - 1);
+
+                    }
+                    done = true;
                 }
             }
         }
