@@ -34,7 +34,7 @@ namespace Capstone
         public static int GetInteger(string message)
         {
             string userInput = String.Empty;
-            int intValue = 0;
+            int intValue = -1;
             int numberOfAttempts = 0;
 
             do
@@ -48,7 +48,7 @@ namespace Capstone
                 userInput = Console.ReadLine();
                 numberOfAttempts++;
             }
-            while (!int.TryParse(userInput, out intValue));
+            while (!int.TryParse(userInput, out intValue) || intValue <0);
 
             return intValue;
 
@@ -202,6 +202,27 @@ namespace Capstone
 
 
             return dateRange;
+        }
+
+        public static string GetYesOrNo(string message)
+        {
+            string userInput = String.Empty;
+            int numberOfAttempts = 0;
+
+            do
+            {
+                if (numberOfAttempts > 0)
+                {
+                    Console.WriteLine("Invalid input format. Please try again");
+                }
+
+                Console.Write(message + " ");
+                userInput = Console.ReadLine();
+                numberOfAttempts++;
+            }
+            while (String.IsNullOrEmpty(userInput) || (!userInput.ToLower().StartsWith("y") && !userInput.ToLower().StartsWith("n")));
+
+            return userInput;
         }
     }
 }

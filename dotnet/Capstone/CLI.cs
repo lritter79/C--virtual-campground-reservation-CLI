@@ -155,7 +155,7 @@ namespace Capstone
                 Console.WriteLine("\n\nResults Matching your Criteria:\n");
                 if (sites.Count == 0)
                 {
-                    string searchAgain = CLIHelper.GetString("There are no campsites open during that time, would you like to try different dates? ");
+                    string searchAgain = CLIHelper.GetYesOrNo("There are no campsites open during that time, would you like to try different dates? ");
                     if (searchAgain.ToLower().StartsWith("n"))
                     {
                         done = true;
@@ -198,6 +198,7 @@ namespace Capstone
         //takes in the customer info and books the reservation in the database
         public void MakeReservation (IList<Campsite> sites, DateTime start, DateTime end)
         {
+
             Reservation newRes = new Reservation();
             int confirmation = 0;
 
@@ -213,7 +214,7 @@ namespace Capstone
                 confirmation = reservationSqlDAO.BookReservation(newRes);
                 Console.WriteLine("\n\nYour reservation has been completed, your confirmation # is CGR" + confirmation);
                 Console.WriteLine("\nPlease make sure to save this for your records.  Press enter to return to the previous Menu.");
-                string answer = CLIHelper.GetString("Would you like to get directions to your gampground? (Y)es or (N)o : ");
+                string answer = CLIHelper.GetYesOrNo("Would you like to get directions to your gampground? (Y)es or (N)o : ");
                 if (answer.ToLower().StartsWith("y"))
                 {
                     DirectionsDisplay.OpenBrowser(sites[choice - 1].Campground_Id - 1);
@@ -228,45 +229,60 @@ namespace Capstone
             string addToQuery = "";
             string answer = "";
             int size = 0;
+            bool done = false;
 
-            answer = CLIHelper.GetString("Would you like to search for Handicapped Accesibility? (Y)es or (N)o? ");
-            if (answer.ToLower().StartsWith("y"))
+            while (!done)
             {
-                addToQuery += " and site.accessible = 'True' ";
+
+
+                answer = CLIHelper.GetYesOrNo("Would you like to search for Handicapped Accesibility? (Y)es or (N)o? ");
+                if (answer.ToLower().StartsWith("y"))
+                {
+                    addToQuery += " and site.accessible = 'True' ";
+                }
+
+                answer = CLIHelper.GetYesOrNo("Would you like your campsite to have Utilities available?  (Y)es or (N)o?");
+                if (answer.ToLower().StartsWith("y"))
+                {
+                    addToQuery += " and site.utilities = 'True' ";
+                }
+
+                size = CLIHelper.GetInteger("Please enter the minimum size required for your RV (Enter 0 if no RV): ");
+                if (size != 0)
+                {
+                    addToQuery += $" and max_rv_length >= {size} ";
+                }
+
+                size = CLIHelper.GetInteger("Please enter the planned number of occupants for your stay: ");
+                addToQuery += $" and max_occupancy >= {size} ";
+
+                int i = 0;
+                IList<Campground> campgrounds = campgroundSqlDAO.GetCampgroundsByPark(park_id);
+                List<Campsite> allSites = new List<Campsite>();
+
+                foreach (Campground cg in campgrounds)
+                {
+                    Console.WriteLine($"\nAvailable sites in {cg.Name}:");
+
+                    IList<Campsite> sites = campsiteSqlDAO.GetAvailableSitesFilteredByDate(cg.Campground_Id, start, end, addToQuery);
+                    i = DisplayHelper.DisplaySitesWithCost(sites, cg.Daily_fee, i);
+                    allSites.AddRange(sites);
+                }
+
+                if (allSites.Count == 0)
+                {
+                    string searchAgain = CLIHelper.GetYesOrNo("There are no campsites open during that time, would you like to try different options? ");
+                    if (searchAgain.ToLower().StartsWith("n"))
+                    {
+                        done = true;
+                    }
+                }
+                else
+                {
+                    MakeReservation(allSites, start, end);
+                    done = true;
+                }
             }
-
-            answer = CLIHelper.GetString("Would you like your campsite to have Utilities available?  (Y)es or (N)o?");
-            if (answer.ToLower().StartsWith("y"))
-            {
-                addToQuery += " and site.utilities = 'True' ";
-            }
-
-            size = CLIHelper.GetInteger("Please enter the minimum size required for your RV (Enter 0 if no RV): ");
-            if(size != 0)
-            {
-                addToQuery += $" and max_rv_length >= {size} ";
-            }
-
-            size = CLIHelper.GetInteger("Please enter the planned number of occupents for your stay: ");
-            addToQuery += $" and max_occupancy >= {size} ";
-
-            int i = 0;
-            IList<Campground> campgrounds = campgroundSqlDAO.GetCampgroundsByPark(park_id);
-            List<Campsite> allSites = new List<Campsite>();
-
-            foreach (Campground cg in campgrounds)
-            {
-                Console.WriteLine($"\nAvailable sites in {cg.Name}:");
-
-                IList<Campsite> sites = campsiteSqlDAO.GetAvailableSitesFilteredByDate(cg.Campground_Id, start, end, addToQuery);
-                i = DisplayHelper.DisplaySitesWithCost(sites, cg.Daily_fee, i);
-                allSites.AddRange(sites);
-
-            }
-
-            MakeReservation(allSites, start, end);
-
         }
-
     }
 }
