@@ -6,9 +6,11 @@ using Capstone.Models;
 
 namespace Capstone
 {
+
     //helper functions to display data to the console
     public static class DisplayHelper
     {
+       
         public static int DisplayParks(IList<Park> parks)
         {
             int i = 1;
@@ -48,12 +50,12 @@ namespace Capstone
 
         public static int DisplaySitesWithCost(IList<Campsite> campsites, decimal estimatedCost, int choicenumber)
         {
-            Console.WriteLine("\n".PadRight(9) + "Site Number".PadRight(20) + "Max. Occupancy".PadRight(20) + "Accessible".PadRight(20) + "Max. RV Length".PadRight(20) + "Utilities");
+            Console.WriteLine("\n".PadRight(10) + "Site Number".PadRight(20) + "Max. Occupancy".PadRight(20) + "Accessible".PadRight(20) + "Max. RV Length".PadRight(20) + "Utilities".PadRight(15) + "Estimated Cost");
                         
             foreach (Campsite cs in campsites)
             {
                 choicenumber++;
-                Console.WriteLine($"{choicenumber})".PadRight(9) + $"{cs.Site_Number}".PadRight(20) + $"{cs.Max_Occupancy}".PadRight(20) + (cs.IsAccessible ? "yes" : "no").PadRight(20)+ $"{cs.Max_Rv_Length}".PadRight(20) + (cs.HasUtilities ? "yes" : "no"));
+                Console.WriteLine($"{choicenumber})".PadRight(9) + $"{cs.Site_Number}".PadRight(20) + $"{cs.Max_Occupancy}".PadRight(20) + (cs.IsAccessible ? "yes" : "no").PadRight(20)+ $"{cs.Max_Rv_Length}".PadRight(20) + (cs.HasUtilities ? "yes" : "no").PadRight(15) + estimatedCost.ToString("C"));
                 
             }
             return choicenumber;
@@ -62,7 +64,7 @@ namespace Capstone
 
         public static void DisplaySites(IList<Campsite> campsites)
         {
-            Console.WriteLine("\n".PadRight(9) + "Site Number".PadRight(20) + "Max. Occupancy".PadRight(20) + "Accessible".PadRight(20) + "Max. RV Length".PadRight(20) + "Utilities");
+            Console.WriteLine("\n".PadRight(15) + "Site Number".PadRight(20) + "Max. Occupancy".PadRight(20) + "Accessible".PadRight(20) + "Max. RV Length".PadRight(20) + "Utilities");
 
             foreach (Campsite cs in campsites)
             {
@@ -74,11 +76,13 @@ namespace Capstone
 
         public static void DisplayReservations(IList<Reservation> reservations)
         {
-            Console.WriteLine("Site_Number".PadRight(10) + "Confirmation #".PadRight(20) +  "Start date".PadRight(15) + "End date".PadRight(15) + "Made on");
+            Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+
+            Console.WriteLine("Site_Number".PadRight(14) + "Confirmation #".PadRight(20) +  "Start date".PadRight(15) + "End date".PadRight(15) + "Made on");
 
             foreach(Reservation res in reservations)
             {
-                Console.WriteLine($"{res.Site_Id}".PadRight(10) + $"CGR{res.Reservation_Id}".PadRight(20) +  res.From_Date.ToShortDateString().PadRight(15) + res.To_Date.ToShortDateString().PadRight(15) + res.Create_Date.ToShortDateString());
+                Console.WriteLine($"{res.Site_Id}".PadRight(14) + $"CGR{res.Reservation_Id}".PadRight(20) +  res.From_Date.ToShortDateString().PadRight(15) + res.To_Date.ToShortDateString().PadRight(15) + res.Create_Date.ToShortDateString());
                
             }
             Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
