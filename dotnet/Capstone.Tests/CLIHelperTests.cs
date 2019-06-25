@@ -1,7 +1,9 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Capstone.DAL;
+using Capstone.Models;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Capstone.Tests
 {
@@ -10,53 +12,57 @@ namespace Capstone.Tests
     public class CLIHelperTests
     {
         //[TestMethod]
-        //[DataRow("x")]
+        //[DataRow("04/20/2069")]
         //public void GetDateTimeTest(string var)
         //{
         //    //Arrange
-        //    DateTime test = DateTime.MinValue;
+        //    string test = "";
         //    //Act
-        //    test = CLIHelper.GetDateTime(var);
+        //    test = CLIHelper.GetDateTime(var).ToLongDateString();
+        //    DateTime x;
         //    //Assert
-        //    Assert.IsTrue(DateTime.TryParse(test));
+        //    Assert.IsTrue(DateTime.TryParse(test, out x));
         //}
 
         //[TestMethod]
-        //[DataRow("x")]
+        //[DataRow("7")]
         //public void GetIntegerTest(string var)
         //{
         //    //Arrange
-        //    int test = 0;
+        //    string test = "";
+        //    int x = 0;
         //    //Act
-        //    test = CLIHelper.GetInteger(var);
+        //    test = CLIHelper.GetInteger(var).ToString();
         //    //Assert
-        //    Assert.IsTrue(int.TryParse(test));
+        //    Assert.IsTrue(int.TryParse(test, out x));
         //}
 
         //[TestMethod]
-        //[DataRow("x")]
+        //[DataRow("0.7")]
         //public void GetDoubleTest(string var)
         //{
         //    //Arrange
-        //    double test = 0.0;
+        //    string test = "";
+        //    double x = 0.0;
 
         //    //Act
-        //    test = CLIHelper.GetDouble(var);
+        //    test = CLIHelper.GetDouble(var).ToString();
         //    //Assert
-        //    Assert.IsTrue(double.TryParse(test));
+        //    Assert.IsTrue(double.TryParse(test, out x));
         //}
 
         //[TestMethod]
-        //[DataRow("x")]
+        //[DataRow("true")]
         //public void GetBoolTest(string var)
         //{
         //    //Arrange
-        //    bool test = false;
+        //    string test = "";
+        //    bool x = false;
 
         //    //Act
-        //    test = CLIHelper.GetBool(var);
+        //    test = CLIHelper.GetBool(var).ToString();
         //    //Assert
-        //    Assert.IsTrue(bool.TryParse(test));
+        //    Assert.IsTrue(bool.TryParse(test, out x));
         //}
 
         //[TestMethod]
@@ -65,13 +71,12 @@ namespace Capstone.Tests
         //{
         //    //Arrange
         //    string test;
+        //    string x;
         //    //Act
-        //    test = CLIHelper.GetString(var);
+        //    test = CLIHelper.GetString(var).ToString();
         //    //Assert
-    
-        //    Assert.IsFalse(string.IsNullOrEmpty(test));
-            //Assert.IsTrue(string.TryParse(test));
 
+        //    Assert.IsFalse(string.IsNullOrEmpty(test));
 
         //}
 
