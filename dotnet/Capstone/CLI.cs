@@ -289,7 +289,7 @@ namespace Capstone
 
                 if (allSites.Count == 0)
                 {
-                    string searchAgain = CLIHelper.GetYesOrNo("There are no campsites open during that time, would you like to try different options? ");
+                    string searchAgain = CLIHelper.GetYesOrNo("There are no campsites open during that time, would you like to try different options? (Y)es or (N)o?");
                     if (searchAgain.ToLower().StartsWith("n"))
                     {
                         done = true;
